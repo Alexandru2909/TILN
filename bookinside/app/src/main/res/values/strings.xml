@@ -9,4 +9,14 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+    <string name="register_button">Register here.</string>
+    <string name="forget_pass_button">Forget Password</string>
+    <string name="login_button">Login</string>
+    <string name="password_input">Password</string>
+    <string name="username_input">Username</string>
+    <string name="logo_app">logo</string>
+
+
 </resources>
