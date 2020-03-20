@@ -2,8 +2,8 @@
     <string name="app_name">BookInside</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="login_fragment_label">First Fragment</string>
+    <string name="register_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -11,12 +11,21 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
-    <string name="register_button">Register here.</string>
+    <string name="register_here_button">Register here.</string>
     <string name="forget_pass_button">Forget Password</string>
-    <string name="login_button">Login</string>
+    <string name="login_button">Log in</string>
     <string name="password_input">Password</string>
     <string name="username_input">Username</string>
     <string name="logo_app">logo</string>
+    <string name="register_button">Register</string>
+    <string name="register_email">Your email</string>
+    <string name="register_phone">Phone</string>
+    <string name="register_username">Username</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_pass">Re-type password</string>
+    <string name="have_account">Already with us ?</string>
+    <string name="have_account_button">Log in</string>
+    <string name="toggle_show_password">SHOW</string>
 
 
 </resources>

@@ -118,7 +118,7 @@
         android:textSize="15sp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_register"
+        android:id="@+id/card_register_here"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_below="@+id/tv_forget_pass_button"
@@ -138,16 +138,16 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tv_register_button"
+                android:id="@+id/tv_register_here_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#07000000"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="sans-serif-thin"
                 android:gravity="center"
-                android:text="@string/register_button"
+                android:text="@string/register_here_button"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" />
+                android:textSize="22sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

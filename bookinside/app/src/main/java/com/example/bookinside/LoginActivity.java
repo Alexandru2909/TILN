@@ -23,27 +23,27 @@ public class LoginActivity extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            view.findViewById(R.id.tv_login_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    NavHostFragment.findNavController(LoginActivity.this)
-                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
-                }
-            });
+//            view.findViewById(R.id.tv_login_button).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    NavHostFragment.findNavController(LoginActivity.this)
+//                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
+//                }
+//            });
+//
+//        view.findViewById(R.id.tv_forget_pass_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(LoginActivity.this)
+//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+//            }
+//        });
 
-        view.findViewById(R.id.tv_forget_pass_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.tv_register_here_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(LoginActivity.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
-
-        view.findViewById(R.id.tv_register_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(LoginActivity.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                        .navigate(R.id.action_Login_to_Register);
             }
         });
     }
