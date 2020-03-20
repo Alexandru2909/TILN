@@ -10,7 +10,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-
     <string name="register_here_button">Register here.</string>
     <string name="forget_pass_button">Forget Password</string>
     <string name="login_button">Log in</string>
@@ -26,6 +25,14 @@
     <string name="have_account">Already with us ?</string>
     <string name="have_account_button">Log in</string>
     <string name="toggle_show_password">SHOW</string>
+
+    <string name="hello_blank_fragment">forget pass</string>
+    <string name="iv_lock_pass">lock</string>
+    <string name="tv_forget_pass">Forgot Password?</string>
+    <string name="tv_subheader_forget_pass">"Confirm your Registered Email and we'll send the instructions."</string>
+    <string name="et_email_forget_pass">"Enter your email"</string>
+    <string name="reset_pass_button">"Reset Password"</string>
+
 
 
 </resources>

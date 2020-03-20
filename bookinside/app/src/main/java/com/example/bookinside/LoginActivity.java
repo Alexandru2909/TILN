@@ -30,14 +30,14 @@ public class LoginActivity extends Fragment {
 //                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
 //                }
 //            });
-//
-//        view.findViewById(R.id.tv_forget_pass_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(LoginActivity.this)
-//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-//            }
-//        });
+
+        view.findViewById(R.id.tv_forget_pass_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(LoginActivity.this)
+                        .navigate(R.id.action_LoginActivity_to_forgetPasswordActivity);
+            }
+        });
 
         view.findViewById(R.id.tv_register_here_button).setOnClickListener(new View.OnClickListener() {
             @Override
