@@ -25,6 +25,7 @@
     <string name="register_confirm_pass">Re-type password</string>
     <string name="have_account">Already with us ?</string>
     <string name="have_account_button">Log in</string>
+    <string name="toggle_show_password">SHOW</string>
 
 
 </resources>
