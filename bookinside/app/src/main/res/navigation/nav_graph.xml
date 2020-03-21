@@ -47,5 +47,9 @@
         android:id="@+id/dashboardActivity"
         android:name="com.example.bookinside.DashboardActivity"
         android:label="dashboard_layout"
-        tools:layout="@layout/dashboard_layout" />
+        tools:layout="@layout/dashboard_layout" >
+        <action
+            android:id="@+id/action_Dashboard_to_Login"
+            app:destination="@id/LoginActivity" />
+    </fragment>
 </navigation>
