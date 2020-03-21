@@ -15,8 +15,11 @@
             android:id="@+id/action_Login_to_Register"
             app:destination="@id/RegisterActivity" />
         <action
-            android:id="@+id/action_LoginActivity_to_forgetPasswordActivity"
+            android:id="@+id/action_Login_to_forgetPassword"
             app:destination="@id/forgetPasswordActivity" />
+        <action
+            android:id="@+id/action_Login_to_Dashboard"
+            app:destination="@id/dashboardActivity" />
     </fragment>
 
     <fragment
@@ -28,15 +31,21 @@
         <action
             android:id="@+id/action_Register_to_Login"
             app:destination="@id/LoginActivity" />
+
     </fragment>
 
     <fragment
         android:id="@+id/forgetPasswordActivity"
         android:name="com.example.bookinside.ForgetPasswordActivity"
         android:label="forget_password_layout"
-        tools:layout="@layout/forget_password_layout" >
+        tools:layout="@layout/forget_password_layout">
         <action
-            android:id="@+id/action_forgetPasswordActivity_to_LoginActivity"
+            android:id="@+id/action_ForgetPassword_to_Login"
             app:destination="@id/LoginActivity" />
     </fragment>
+    <fragment
+        android:id="@+id/dashboardActivity"
+        android:name="com.example.bookinside.DashboardActivity"
+        android:label="dashboard_layout"
+        tools:layout="@layout/dashboard_layout" />
 </navigation>
