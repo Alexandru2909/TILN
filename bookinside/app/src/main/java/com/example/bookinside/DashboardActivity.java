@@ -1,6 +1,7 @@
 package com.example.bookinside;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,7 +32,8 @@ import okhttp3.Response;
 
 
 public class DashboardActivity extends Fragment {
-    TextView btnLogOut;
+
+    TextView btnLogOut,btnReadBooks,btnReadingBooks,btnWishlist,btnFindBooks,displayUsername;
 
     @Override
     public View onCreateView(
@@ -39,19 +41,63 @@ public class DashboardActivity extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
+//        Bundle bundle = getArguments();
+//
+//        assert bundle != null;
+//        String username = bundle.getString("username");
+//        displayUsername = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_display_username);
+//        displayUsername.setText(username);
+
         return inflater.inflate(R.layout.dashboard_layout, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         btnLogOut = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_log_out_button);
+        btnReadBooks = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_read_books_button);
+        btnReadingBooks = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_reading_books_button);
+        btnWishlist = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_wishlist_button);
+        btnFindBooks = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_find_books_button);
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(DashboardActivity.this)
                         .navigate(R.id.action_Dashboard_to_Login);
+            }
+        });
+
+        btnReadBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardActivity.this)
+                        .navigate(R.id.action_Dashboard_to_ViewBooks);
+            }
+        });
+
+        btnReadingBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardActivity.this)
+                        .navigate(R.id.action_Dashboard_to_ViewBooks);
+            }
+        });
+
+        btnWishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardActivity.this)
+                        .navigate(R.id.action_Dashboard_to_ViewBooks);
+            }
+        });
+
+        btnFindBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(DashboardActivity.this)
+                        .navigate(R.id.action_Dashboard_to_FindBooks);
             }
         });
 

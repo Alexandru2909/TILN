@@ -51,5 +51,29 @@
         <action
             android:id="@+id/action_Dashboard_to_Login"
             app:destination="@id/LoginActivity" />
+        <action
+            android:id="@+id/action_Dashboard_to_ViewBooks"
+            app:destination="@id/viewBooks" />
+        <action
+            android:id="@+id/action_Dashboard_to_FindBooks"
+            app:destination="@id/findBooks" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBooks"
+        android:name="com.example.bookinside.ViewBooksActivity"
+        android:label="view_books_layout"
+        tools:layout="@layout/view_books_layout" >
+        <action
+            android:id="@+id/action_ViewBooks_to_Dashboard"
+            app:destination="@id/dashboardActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/findBooks"
+        android:name="com.example.bookinside.FindBooksActivity"
+        android:label="find_books_layout"
+        tools:layout="@layout/find_books_layout" >
+        <action
+            android:id="@+id/action_FindBooks_to_Dashboard"
+            app:destination="@id/dashboardActivity" />
     </fragment>
 </navigation>

@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.Objects;
@@ -50,6 +52,18 @@ public class LoginActivity extends Fragment {
             public void onClick(View v) {
                 String Username = etUsername.getText().toString();
                 String Password = etPassword.getText().toString();
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("username",Username);
+//
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                DashboardActivity dashboardActivity = new DashboardActivity();
+//                dashboardActivity.setArguments(bundle);
+//
+//                fragmentTransaction.replace(R.id.frame_container,dashboardActivity);
+//                fragmentTransaction.commit();
 
                 NavHostFragment.findNavController(LoginActivity.this)
                         .navigate(R.id.action_Login_to_Dashboard);

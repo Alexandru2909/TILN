@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class ForgetPasswordActivity extends Fragment {
     final String url_ForgetPassword = "";
     EditText etEmail;
     TextView btnResetPassword;
+    ImageView btnBack;
 
     @Override
     public View onCreateView(
@@ -42,6 +44,15 @@ public class ForgetPasswordActivity extends Fragment {
 
         etEmail = (EditText) Objects.requireNonNull(getView()).findViewById(R.id.et_email_forget_pass);
         btnResetPassword = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_reset_password_button);
+        btnBack = (ImageView) Objects.requireNonNull(getView()).findViewById(R.id.iv_arrow);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(ForgetPasswordActivity.this)
+                        .navigate(R.id.action_ForgetPassword_to_Login);
+            }
+        });
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override

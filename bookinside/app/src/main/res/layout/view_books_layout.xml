@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register_gradient"
+
+    android:textAlignment="center"
+    tools:context=".ViewBooksActivity">
+
+    <ImageView
+        android:id="@+id/iv_arrow_from_view_books"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/back_from_view_books"
+        android:src="@drawable/arrow"
+        android:clickable="true"
+        android:focusable="true" />
+
+
+
+
+
+</RelativeLayout>
