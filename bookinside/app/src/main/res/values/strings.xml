@@ -40,5 +40,8 @@
     <string name="wishlist">Wishlist</string>
     <string name="find_books">Find Books</string>
     <string name="username">*username</string>
+    <string name="back_arrow">back_arrow</string>
+    <string name="back_from_view_books">back_from_view_books</string>
+    <string name="back_from_find_books">back_from_find_books</string>
 
 </resources>

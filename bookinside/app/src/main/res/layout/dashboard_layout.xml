@@ -23,9 +23,8 @@
         android:contentDescription="@string/logo_app"
         android:src="@drawable/logoprofile" />
 
-
     <TextView
-        android:id="@+id/tv_subheader_forget_pass"
+        android:id="@+id/tv_display_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_logo_profile"
@@ -44,11 +43,11 @@
         android:id="@+id/card_read_books"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/iv_logo_profile"
+        android:layout_below="@+id/tv_display_username"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="75dp"
 
         app:cardBackgroundColor="#E9B7B5F4"
@@ -117,7 +116,7 @@
                 android:id="@+id/tv_icon_reading_books_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="42dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="75dp"
                 android:drawableStart="@drawable/ic_action_reading_books" />
@@ -160,7 +159,7 @@
                 android:id="@+id/tv_icon_wishlist_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="42dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="75dp"
                 android:drawableStart="@drawable/ic_action_wishlist" />
@@ -202,7 +201,7 @@
                 android:id="@+id/tv_icon_find_books_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="75dp"
                 android:drawableStart="@drawable/ic_action_find_books" />
