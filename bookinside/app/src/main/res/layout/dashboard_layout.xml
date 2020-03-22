@@ -10,40 +10,10 @@
     android:textAlignment="center"
     tools:context=".DashboardActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_log_out"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="250dp"
-        android:layout_marginEnd="15dp"
-        app:cardBackgroundColor="#C1FFFFFF"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="0dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <TextView
-                android:id="@+id/tv_log_out_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-thin"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:text="@string/log_out"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
     <ImageView
-        android:id="@+id/iv_logo"
+        android:id="@+id/iv_logo_profile"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_below="@+id/card_log_out"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -54,4 +24,201 @@
         android:src="@drawable/logoprofile" />
 
 
+    <TextView
+        android:id="@+id/tv_subheader_forget_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo_profile"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="@string/username"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_read_books"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/iv_logo_profile"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="75dp"
+
+        app:cardBackgroundColor="#E9B7B5F4"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000">
+
+            <TextView
+                android:id="@+id/tv_read_books_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@string/font_family_condensed"
+                android:gravity="center"
+                android:text="@string/read_books"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tv_icon_read_books_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="75dp"
+                android:drawableStart="@drawable/ic_action_read_books" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_reading_books"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/card_read_books"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="75dp"
+
+        app:cardBackgroundColor="#7773F4"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000">
+
+            <TextView
+                android:id="@+id/tv_reading_books_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@string/font_family_condensed"
+                android:gravity="center"
+                android:text="@string/reading"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tv_icon_reading_books_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="75dp"
+                android:drawableStart="@drawable/ic_action_reading_books" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_wishlist"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/card_reading_books"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="75dp"
+
+        app:cardBackgroundColor="#DA605CEC"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000">
+
+            <TextView
+                android:id="@+id/tv_wishlist_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@string/font_family_condensed"
+                android:gravity="center"
+                android:text="@string/wishlist"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tv_icon_wishlist_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="75dp"
+                android:drawableStart="@drawable/ic_action_wishlist" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_find_books"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/card_wishlist"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="75dp"
+
+        app:cardBackgroundColor="#75080819"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000">
+
+            <TextView
+                android:id="@+id/tv_find_books_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@string/font_family_condensed"
+                android:gravity="center"
+                android:text="@string/find_books"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tv_icon_find_books_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="75dp"
+                android:drawableStart="@drawable/ic_action_find_books" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_log_out_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_find_books"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="45dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/log_out"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
 </RelativeLayout>

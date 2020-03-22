@@ -34,6 +34,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="log_out">Log out</string>
+    <string name="log_out"><i>Log out</i></string>
+    <string name="read_books">Read Books</string>
+    <string name="reading">Reading</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="find_books">Find Books</string>
+    <string name="username">*username</string>
 
 </resources>
