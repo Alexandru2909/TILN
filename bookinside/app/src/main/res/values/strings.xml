@@ -43,5 +43,12 @@
     <string name="back_arrow">back_arrow</string>
     <string name="back_from_view_books">back_from_view_books</string>
     <string name="back_from_find_books">back_from_find_books</string>
+    <string name="book_1">Book 1</string>
+    <string name="add_book">add_book</string>
+    <string name="book_title">Book Title</string>
+    <string name="author_name">Author Name</string>
+    <string name="cancel_button">cancel_button</string>
+    <string name="add_button">add_button</string>
+    <string name="title">*title</string>
 
 </resources>
