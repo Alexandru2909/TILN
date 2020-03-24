@@ -5,6 +5,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,11 +38,27 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Email = etEmail.getText().toString();
-                openLoginActivity();
-//              new ResetPassword().execute(Email);
+                if(validateEmail()) {
+                    String Email = etEmail.getText().toString();
+                    openLoginActivity();
+                    //        new ResetPassword().execute(Email);
+                }
             }
         });
+    }
+
+    private boolean validateEmail(){
+        String emailInput = etEmail.getText().toString().trim();
+        if(emailInput.isEmpty()){
+            etEmail.setError("Field can't be empty");
+            return false;
+        } else if(!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
+            etEmail.setError("Invalid Email");
+            return false;
+        }else{
+            etEmail.setError(null);
+            return true;
+        }
     }
 
     public void openLoginActivity() {
