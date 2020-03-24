@@ -16,8 +16,9 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="MyHintStyle" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/white</item>
+    <style name="AppTheme.CustomPopTheme" >
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name = "android:windowBackground" > @android:color/transparent</item>
     </style>
 </resources>

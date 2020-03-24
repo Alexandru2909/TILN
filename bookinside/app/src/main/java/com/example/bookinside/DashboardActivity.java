@@ -1,107 +1,87 @@
 package com.example.bookinside;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.text.method.PasswordTransformationMethod;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.Objects;
 
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-
-public class DashboardActivity extends Fragment {
-
+public class DashboardActivity extends AppCompatActivity {
     TextView btnLogOut,btnReadBooks,btnReadingBooks,btnWishlist,btnFindBooks,displayUsername;
-
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        // Inflate the layout for this fragment
-//        Bundle bundle = getArguments();
-//
-//        assert bundle != null;
-//        String username = bundle.getString("username");
-//        displayUsername = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_display_username);
-//        displayUsername.setText(username);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dashboard);
+        displayUsername = (TextView)findViewById(R.id.tv_display_username);
+        btnLogOut = (TextView)findViewById(R.id.tv_log_out_button);
+        btnReadBooks = (TextView) findViewById(R.id.tv_read_books_button);
+        btnReadingBooks = (TextView) findViewById(R.id.tv_reading_books_button);
+        btnWishlist = (TextView) findViewById(R.id.tv_wishlist_button);
+        btnFindBooks = (TextView) findViewById(R.id.tv_find_books_button);
 
-        return inflater.inflate(R.layout.dashboard_layout, container, false);
+        final String name = getIntent().getStringExtra("username");
 
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        btnLogOut = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_log_out_button);
-        btnReadBooks = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_read_books_button);
-        btnReadingBooks = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_reading_books_button);
-        btnWishlist = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_wishlist_button);
-        btnFindBooks = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.tv_find_books_button);
-
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(DashboardActivity.this)
-                        .navigate(R.id.action_Dashboard_to_Login);
-            }
-        });
+        displayUsername.setText("Welcome " + name);
 
         btnReadBooks.setOnClickListener(new View.OnClickListener() {
+            String title = "Your books";
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(DashboardActivity.this)
-                        .navigate(R.id.action_Dashboard_to_ViewBooks);
+                openViewBooksActivity(title,name);
             }
         });
 
         btnReadingBooks.setOnClickListener(new View.OnClickListener() {
+            String title = "Reading now";
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(DashboardActivity.this)
-                        .navigate(R.id.action_Dashboard_to_ViewBooks);
+                openViewBooksActivity(title,name);
             }
         });
 
         btnWishlist.setOnClickListener(new View.OnClickListener() {
+            String title = "Wishlist";
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(DashboardActivity.this)
-                        .navigate(R.id.action_Dashboard_to_ViewBooks);
+                openViewBooksActivity(title,name);
             }
         });
 
         btnFindBooks.setOnClickListener(new View.OnClickListener() {
+            String title = "Find a book";
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(DashboardActivity.this)
-                        .navigate(R.id.action_Dashboard_to_FindBooks);
+                openFindBooksActivity(title,name);
             }
         });
-
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLoginActivity();
+            }
+        });
+    }
+    public void openViewBooksActivity(String title,String name) {
+        Intent intent = new Intent(this, ViewBooksActivity.class);
+        intent.putExtra("title",title);
+        intent.putExtra("username", name);
+        startActivity(intent);
+    }
+    public void openFindBooksActivity(String title,String name) {
+        Intent intent = new Intent(this, FindBooksActivity.class);
+        intent.putExtra("title",title);
+        intent.putExtra("username", name);
+        startActivity(intent);
     }
 
+    public void openLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 
 }

@@ -1,46 +1,44 @@
 package com.example.bookinside;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.view.LayoutInflater;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Objects;
 
-public class FindBooksActivity extends Fragment {
-
+public class FindBooksActivity extends AppCompatActivity {
     ImageView btnBack;
+    TextView sectionBook;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.find_books_layout, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_find_books);
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view,savedInstanceState);
+        btnBack = (ImageView) findViewById(R.id.iv_arrow_from_find_books);
+        sectionBook = (TextView) findViewById(R.id.book_find_section_title);
 
+        final String name = getIntent().getStringExtra("username");
+        final String title = getIntent().getStringExtra("title");
 
-        btnBack = (ImageView) Objects.requireNonNull(getView()).findViewById(R.id.iv_arrow_from_find_books);
+        sectionBook.setText(title);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(FindBooksActivity.this)
-                        .navigate(R.id.action_FindBooks_to_Dashboard);
+                openDashActivity(name);
             }
         });
 
     }
 
+    public void openDashActivity(String name) {
+        Intent intent = new Intent(this, DashboardActivity.class);
+        intent.putExtra("username", name);
+        startActivity(intent);
+    }
 }

@@ -126,7 +126,7 @@
             android:textColor="@color/white"
             android:textCursorDrawable="@drawable/cursor_color"
             app:backgroundTint="@color/white"
-           />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--    <TextView-->
@@ -158,7 +158,7 @@
         app:hintTextColor="@color/white"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white"
-       >
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_confirm_pass_register"
