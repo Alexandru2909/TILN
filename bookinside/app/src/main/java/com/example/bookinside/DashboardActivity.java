@@ -4,10 +4,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -65,7 +68,26 @@ public class DashboardActivity extends AppCompatActivity {
                 openLoginActivity();
             }
         });
+
     }
+
+    private boolean backClickedTwice ;
+
+    @Override
+    public void onBackPressed(){
+        if (backClickedTwice){
+            super.onBackPressed();
+        }
+        this.backClickedTwice = true;
+        Toast.makeText(this, "You are about to exit the app. Press again to exit.", Toast.LENGTH_LONG).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                backClickedTwice = false;
+            }
+        }, 2000);
+    }
+
     public void openViewBooksActivity(String title,String name) {
         Intent intent = new Intent(this, ViewBooksActivity.class);
         intent.putExtra("title",title);
@@ -81,6 +103,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

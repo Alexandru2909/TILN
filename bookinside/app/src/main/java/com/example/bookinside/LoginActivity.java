@@ -2,11 +2,13 @@ package com.example.bookinside;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -70,6 +72,24 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private boolean backClickedTwice;
+
+    @Override
+    public void onBackPressed(){
+        if (backClickedTwice){
+            super.onBackPressed();
+        }
+        this.backClickedTwice = true;
+        Toast.makeText(this, "You are about to exit the app. Press again to exit.", Toast.LENGTH_LONG).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                backClickedTwice = false;
+            }
+        }, 2000);
+    }
+
+
     private boolean validateUsername(){
         String usernameInput = etUsername.getText().toString().trim();
         if(usernameInput.isEmpty()){
@@ -102,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent1 = new Intent(getBaseContext(), DashboardActivity.class);
         intent1.putExtra("username", Username);
 
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent1);
     }
     public void openForgetPassActivity() {

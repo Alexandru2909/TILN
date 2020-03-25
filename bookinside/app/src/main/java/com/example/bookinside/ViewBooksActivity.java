@@ -58,14 +58,15 @@ public class ViewBooksActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDashActivity(name);
+//                openDashActivity(name);
+                onBackPressed();
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowPopUp(v);
+                openFindBookActivity();
             }
         });
 
@@ -124,6 +125,12 @@ public class ViewBooksActivity extends AppCompatActivity {
     public void openDashActivity(String name) {
         Intent intent = new Intent(this, DashboardActivity.class);
         intent.putExtra("username", name);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public void openFindBookActivity() {
+        Intent intent = new Intent(this, FindBooksActivity.class);
         startActivity(intent);
     }
 

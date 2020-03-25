@@ -31,7 +31,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               openLoginActivity();
+               onBackPressed();
             }
         });
 
@@ -63,6 +63,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     public void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
