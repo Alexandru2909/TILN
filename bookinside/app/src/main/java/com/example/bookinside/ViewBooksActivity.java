@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -21,11 +22,66 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ViewBooksActivity extends AppCompatActivity {
+
+//    ////////////////////////
+private static final String SERVER = "http://192.168.1.2:8081/";
+
+    private TextView tvServerResponse;
+    public class HttpGetRequest extends AsyncTask<Void, Void, String> {
+
+        static final String REQUEST_METHOD = "GET";
+        static final int READ_TIMEOUT = 15000;
+        static final int CONNECTION_TIMEOUT = 15000;
+
+        @Override
+        protected String doInBackground(Void... params){
+            String result;
+            String inputLine;
+
+            try {
+                // connect to the server
+                URL myUrl = new URL(SERVER);
+                HttpURLConnection connection =(HttpURLConnection) myUrl.openConnection();
+                connection.setRequestMethod(REQUEST_METHOD);
+                connection.setReadTimeout(READ_TIMEOUT);
+                connection.setConnectTimeout(CONNECTION_TIMEOUT);
+                connection.connect();
+
+                // get the string from the input stream
+                InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
+                BufferedReader reader = new BufferedReader(streamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                while((inputLine = reader.readLine()) != null){
+                    stringBuilder.append(inputLine);
+                }
+                reader.close();
+                streamReader.close();
+                result = stringBuilder.toString();
+
+            } catch(IOException e) {
+                e.printStackTrace();
+                result = "error";
+            }
+
+            return result;
+        }
+
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            tvServerResponse.setText(result);
+        }
+    }
+//    ////////////////////////
 
     RelativeLayout.LayoutParams layoutparams;
     RelativeLayout.LayoutParams layoutparams1;
@@ -53,6 +109,11 @@ public class ViewBooksActivity extends AppCompatActivity {
         final String name = getIntent().getStringExtra("username");
         final String title = getIntent().getStringExtra("title");
 
+        //Sample test code
+        tvServerResponse = findViewById(R.id.book_section_title);
+        HttpGetRequest request = new HttpGetRequest();
+        request.execute();
+        //End of sample test code
         sectionBook.setText(title);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
