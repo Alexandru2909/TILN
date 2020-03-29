@@ -108,11 +108,12 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="60dp"
         android:autofillHints="password"
-        android:hint=""
         android:textColorHint="@color/silver"
         app:hintTextColor="@color/white"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/white">
+        app:passwordToggleTint="@color/white"
+        android:hint="@string/register_password"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_password_register"
@@ -121,12 +122,11 @@
             android:drawableStart="@drawable/ic_action_pass"
             android:ems="10"
             android:fontFamily="sans-serif-thin"
-            android:hint="@string/register_password"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textCursorDrawable="@drawable/cursor_color"
             app:backgroundTint="@color/white"
-           />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--    <TextView-->
@@ -153,12 +153,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
         android:autofillHints="confirm password"
-        android:hint=""
         android:textColorHint="@color/silver"
         app:hintTextColor="@color/white"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white"
-       >
+        android:hint="@string/register_confirm_pass"
+
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_confirm_pass_register"
@@ -167,7 +168,6 @@
             android:drawableStart="@drawable/ic_action_pass"
             android:ems="10"
             android:fontFamily="sans-serif-thin"
-            android:hint="@string/register_confirm_pass"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:textColorHint="@color/silver"
@@ -176,18 +176,6 @@
             />
 
     </com.google.android.material.textfield.TextInputLayout>
-    <!--    <TextView-->
-    <!--        android:id="@+id/tv_toggle_show_confirm_pass"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_below="@+id/et_confirm_pass_register"-->
-    <!--        android:layout_marginStart="300dp"-->
-    <!--        android:layout_marginTop="-37dp"-->
-    <!--        android:background="#07000000"-->
-    <!--        android:fontFamily="sans-serif-light"-->
-    <!--        android:text="@string/toggle_show_password"-->
-    <!--        android:textColor="#FFFFFF"-->
-    <!--        android:textSize="12sp" />-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_register"

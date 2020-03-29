@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/LoginActivity"
-        android:name="com.example.bookinside.LoginActivity"
+        android:name="com.example.bookinside.LoginFragment"
         android:label="@string/login_fragment_label"
         tools:layout="@layout/login_layout">
 
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/RegisterActivity"
-        android:name="com.example.bookinside.RegisterActivity"
+        android:name="com.example.bookinside.RegisterFragment"
         android:label="@string/register_fragment_label"
         tools:layout="@layout/register_layout">
 
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/forgetPasswordActivity"
-        android:name="com.example.bookinside.ForgetPasswordActivity"
+        android:name="com.example.bookinside.ForgetPasswordFragment"
         android:label="forget_password_layout"
         tools:layout="@layout/forget_password_layout">
         <action
@@ -45,11 +45,35 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardActivity"
-        android:name="com.example.bookinside.DashboardActivity"
+        android:name="com.example.bookinside.DashboardFragment"
         android:label="dashboard_layout"
-        tools:layout="@layout/dashboard_layout" >
+        tools:layout="@layout/dashboard_fragment_layout" >
         <action
             android:id="@+id/action_Dashboard_to_Login"
             app:destination="@id/LoginActivity" />
+        <action
+            android:id="@+id/action_Dashboard_to_ViewBooks"
+            app:destination="@id/viewBooks" />
+        <action
+            android:id="@+id/action_Dashboard_to_FindBooks"
+            app:destination="@id/findBooks" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBooks"
+        android:name="com.example.bookinside.ViewBooksFragment"
+        android:label="view_books_layout"
+        tools:layout="@layout/view_books_layout" >
+        <action
+            android:id="@+id/action_ViewBooks_to_Dashboard"
+            app:destination="@id/dashboardActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/findBooks"
+        android:name="com.example.bookinside.FindBooksFragment"
+        android:label="find_books_layout"
+        tools:layout="@layout/find_books_layout" >
+        <action
+            android:id="@+id/action_FindBooks_to_Dashboard"
+            app:destination="@id/dashboardActivity" />
     </fragment>
 </navigation>
