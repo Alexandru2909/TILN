@@ -50,5 +50,8 @@
     <string name="cancel_button">cancel_button</string>
     <string name="add_button">add_button</string>
     <string name="title">*title</string>
+    <string name="bookAuthor">Author</string>
+    <string name="bookTitle">Title</string>
+    <string name="bookDescription">O scurta si ingenioasa descriere a cartii pe care o vom lua din baza de date, sper</string>
 
 </resources>

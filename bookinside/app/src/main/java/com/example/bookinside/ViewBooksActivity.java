@@ -7,10 +7,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -77,8 +79,7 @@ public class ViewBooksActivity extends AppCompatActivity {
         List<CardView> cardViews = new ArrayList<>();
 
         for (int i = 0; i < books.length; i++) {
-            linearLayout.addView(CreateCardView(books[i]));
-            linearLayout.addView(CreateBlankCardView());
+            linearLayout.addView(CreateBlankCardView(CreateCardView(books[i])));
         }
 
     }
@@ -102,8 +103,7 @@ public class ViewBooksActivity extends AppCompatActivity {
 
                         final String newBook = bookTitle.getText().toString() + " - " + bookAuthor.getText().toString();
 
-                        linearLayout.addView(CreateCardView(newBook));
-                        linearLayout.addView(CreateBlankCardView());
+                        linearLayout.addView(CreateBlankCardView(CreateCardView(newBook)));
 
                     }
                 }
@@ -137,7 +137,7 @@ public class ViewBooksActivity extends AppCompatActivity {
     public CardView CreateCardView(String bookDetails) {
         Context context;
         CardView cardview;
-        TextView textview;
+        final TextView textview;
         context = getApplicationContext();
 
         cardview = new CardView(context);
@@ -175,10 +175,18 @@ public class ViewBooksActivity extends AppCompatActivity {
 
         cardview.setContentPadding(10, 35, 10, 40);
 
+        cardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                openBookActivity(textview.getText().toString(), textview.getText().toString());
+                openBookActivity("Ion", "Rebreanu");
+            }
+        });
+
         return cardview;
     }
 
-    public CardView CreateBlankCardView() {
+    public CardView CreateBlankCardView(CardView bookView) {
         Context context;
         CardView cardview;
         TextView textview;
@@ -187,20 +195,35 @@ public class ViewBooksActivity extends AppCompatActivity {
         cardview = new CardView(context);
 
         layoutparams1 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                40
+                Resources.getSystem().getDisplayMetrics().widthPixels,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
         );
 
         cardview.setLayoutParams(layoutparams1);
 
         cardview.setRadius(0);
 
-//        cardview.setPadding(55, 35, 25, 15);
+        cardview.setContentPadding(5, 10,5,10);
 
-        cardview.setCardBackgroundColor(Color.parseColor("#00000000"));
+//        cardview.setCardBackgroundColor(Color.parseColor("#00000000"));
 
-        cardview.setMaxCardElevation(50);
+        cardview.setCardBackgroundColor(Color.TRANSPARENT);
+
+        cardview.setBackgroundColor(Color.TRANSPARENT);
+
+        cardview.setMaxCardElevation(0);
+
+        cardview.addView(bookView);
 
         return cardview;
+    }
+
+    public void openBookActivity(String title, String author){
+        Intent intent1 = new Intent(getBaseContext(), BookActivity.class);
+        intent1.putExtra("title", title);
+        intent1.putExtra("author", author);
+
+//        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent1);
     }
 }
