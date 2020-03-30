@@ -24,66 +24,70 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ViewBooksActivity extends AppCompatActivity {
 
 //    ////////////////////////
-private static final String SERVER = "http://192.168.1.2:8081/";
+        private static String SERVER = "http://192.168.1.4:3000/";
+        HashMap<String,String> req = new HashMap<String,String>();
+        RequestQueue queue;
+        String res = "";
 
-    private TextView tvServerResponse;
-    public class HttpGetRequest extends AsyncTask<Void, Void, String> {
-
-        static final String REQUEST_METHOD = "GET";
-        static final int READ_TIMEOUT = 15000;
-        static final int CONNECTION_TIMEOUT = 15000;
-
-        @Override
-        protected String doInBackground(Void... params){
-            String result;
-            String inputLine;
-
-            try {
-                // connect to the server
-                URL myUrl = new URL(SERVER);
-                HttpURLConnection connection =(HttpURLConnection) myUrl.openConnection();
-                connection.setRequestMethod(REQUEST_METHOD);
-                connection.setReadTimeout(READ_TIMEOUT);
-                connection.setConnectTimeout(CONNECTION_TIMEOUT);
-                connection.connect();
-
-                // get the string from the input stream
-                InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
-                BufferedReader reader = new BufferedReader(streamReader);
-                StringBuilder stringBuilder = new StringBuilder();
-                while((inputLine = reader.readLine()) != null){
-                    stringBuilder.append(inputLine);
+        public  void  GetBooks() {
+            //Define the endpoint called by funct
+            SERVER += "login";
+//            return point of POST
+            StringRequest postRequest = new StringRequest(Request.Method.POST, SERVER,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            System.out.println("Response" + response);
+                            res = response;
+//                            Or do some other stuff
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            res = "Error,Response";
+                            error.printStackTrace();
+                            System.out.println("Error,Response");
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    return req;
                 }
-                reader.close();
-                streamReader.close();
-                result = stringBuilder.toString();
-
-            } catch(IOException e) {
-                e.printStackTrace();
-                result = "error";
-            }
-
-            return result;
+            };
+            //FOR LOCALHOST
+            postRequest.setShouldCache(false);
+            postRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            queue.add(postRequest);
         }
-
-        protected void onPostExecute(String result){
-            super.onPostExecute(result);
-            tvServerResponse.setText(result);
-        }
-    }
-//    ////////////////////////
 
     RelativeLayout.LayoutParams layoutparams;
     RelativeLayout.LayoutParams layoutparams1;
@@ -103,6 +107,14 @@ private static final String SERVER = "http://192.168.1.2:8081/";
         setContentView(R.layout.activity_view_books);
         myDialog = new Dialog(this);
 
+        ///TEST
+        queue = Volley.newRequestQueue(this);
+        req.put("user", "alex");
+        req.put("password","parola123");
+        GetBooks();
+//        REMEMBER,this is async call
+//        System.out.println("yto "+res);
+        //END TEST
         btnAdd = (ImageView) findViewById(R.id.iv_add_book);
         linearLayout = (LinearLayout) findViewById(R.id.addbookhere);
         btnBack = (ImageView) findViewById(R.id.iv_arrow_from_view_books);
@@ -110,12 +122,6 @@ private static final String SERVER = "http://192.168.1.2:8081/";
 
         final String name = getIntent().getStringExtra("username");
         final String title = getIntent().getStringExtra("title");
-
-        //Sample test code
-        tvServerResponse = findViewById(R.id.book_section_title);
-        HttpGetRequest request = new HttpGetRequest();
-        request.execute();
-        //End of sample test code
         sectionBook.setText(title);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
