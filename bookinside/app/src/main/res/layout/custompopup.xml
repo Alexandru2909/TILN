@@ -14,75 +14,30 @@
         android:layout_marginStart="290dp"
         android:layout_marginEnd="70dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@string/cancel_button"
         android:src="@drawable/cancel"
         android:clickable="true"
         android:focusable="true" />
 
     <EditText
-        android:id="@+id/et_pop_book_name"
+        android:id="@+id/popup_text"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="9dp"
-        android:autofillHints="username"
-        android:cursorVisible="true"
-        android:ems="10"
-        android:fontFamily="sans-serif-condensed"
-        android:hint="@string/book_title"
-        android:inputType="textPersonName"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textCursorDrawable="@drawable/black_cursor"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/et_pop_author_name"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_below="@+id/et_pop_book_name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="-18dp"
-        android:autofillHints="username"
-        android:cursorVisible="true"
-        android:ems="10"
-        android:fontFamily="sans-serif-condensed"
-        android:hint="@string/author_name"
-        android:inputType="textPersonName"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textCursorDrawable="@drawable/black_cursor"
-        android:textSize="18sp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_pop_author_name"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:layout_centerHorizontal="true">
-        <ImageView
-            android:id="@+id/iv_add"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/add_button"
-            android:src="@drawable/add"
-            android:clickable="true"
-            android:focusable="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="People that live near this places"
+        android:layout_below="@+id/iv_cancel"/>
 
-    </RelativeLayout>
+    <ListView
+        android:id="@+id/people_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/popup_text"
+        android:layout_margin="30dp"/>
 
 </RelativeLayout>

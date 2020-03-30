@@ -145,43 +145,43 @@ private static final String SERVER = "http://192.168.1.2:8081/";
 
     }
 
-    public void ShowPopUp(View v) {
-        myDialog.setContentView(R.layout.custompopup);
-
-        ImageView btnAdd, btnClose;
-        btnAdd = (ImageView) myDialog.findViewById(R.id.iv_add);
-        btnClose = (ImageView) myDialog.findViewById(R.id.iv_cancel);
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText bookTitle, bookAuthor;
-                bookTitle = (EditText) myDialog.findViewById(R.id.et_pop_book_name);
-                bookAuthor = (EditText) myDialog.findViewById(R.id.et_pop_author_name);
-
-                if ((bookTitle.getText().toString().trim().length() > 0)) {
-                    if ((bookAuthor.getText().toString().trim().length() > 0)) {
-
-                        final String newBook = bookTitle.getText().toString() + " - " + bookAuthor.getText().toString();
-
-                        linearLayout.addView(CreateBlankCardView(CreateCardView(newBook)));
-
-                    }
-                }
-                myDialog.dismiss();
-            }
-        });
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
-
-        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-        myDialog.show();
-    }
+//    public void ShowPopUp(View v) {
+//        myDialog.setContentView(R.layout.custompopup);
+//
+//        ImageView btnAdd, btnClose;
+//        btnAdd = (ImageView) myDialog.findViewById(R.id.iv_add);
+//        btnClose = (ImageView) myDialog.findViewById(R.id.iv_cancel);
+//
+//        btnAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditText bookTitle, bookAuthor;
+//                bookTitle = (EditText) myDialog.findViewById(R.id.et_pop_book_name);
+//                bookAuthor = (EditText) myDialog.findViewById(R.id.et_pop_author_name);
+//
+//                if ((bookTitle.getText().toString().trim().length() > 0)) {
+//                    if ((bookAuthor.getText().toString().trim().length() > 0)) {
+//
+//                        final String newBook = bookTitle.getText().toString() + " - " + bookAuthor.getText().toString();
+//
+//                        linearLayout.addView(CreateBlankCardView(CreateCardView(newBook)));
+//
+//                    }
+//                }
+//                myDialog.dismiss();
+//            }
+//        });
+//
+//        btnClose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myDialog.dismiss();
+//            }
+//        });
+//
+//        Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+//        myDialog.show();
+//    }
 
     public void openDashActivity(String name) {
         Intent intent = new Intent(this, DashboardActivity.class);
@@ -239,8 +239,8 @@ private static final String SERVER = "http://192.168.1.2:8081/";
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                openBookActivity(textview.getText().toString(), textview.getText().toString());
-                openBookActivity("Ion", "Rebreanu");
+                openBookActivity(textview.getText().toString(), textview.getText().toString());
+//                openBookActivity("Ion", "Rebreanu");
             }
         });
 
