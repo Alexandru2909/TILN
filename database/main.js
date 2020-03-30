@@ -1,14 +1,25 @@
-var http = require("http");
+// pentru a instala cele necesare trebuie "npm install"
+// pentru a porni serverel :"node main.js"
+var myDB = require("./dummydb")
+// exemplu de acces in bd
+console.log(myDB.users[1])
+var express        =        require("express");
+var bodyParser     =        require("body-parser");
+var app            =        express();
 
-http.createServer(function (request, response) {
-   // Send the HTTP header 
-   // HTTP Status: 200 : OK
-   // Content Type: text/plain
-   response.writeHead(200, {'Content-Type': 'text/plain'});
-   
-   // Send the response body as "Hello World"
-   response.end('Hello World\n');
-}).listen(8081);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// Console will print the message
-console.log('Server running at http://127.0.0.1:8081/');
+app.get('/',function(req,res){
+  res.sendfile("index.html");
+});
+// exemplu de folosire a stringurilor
+app.post('/login',function(req,res){
+  var user_name=req.body.user;
+  var password=req.body.password;
+  console.log("User name = "+user_name+", password is "+password);
+  res.end("yes");
+});
+app.listen(3000,function(){
+  console.log("Started on PORT 3000");
+})
