@@ -5,9 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/register_gradient"
     android:textAlignment="center"
+    android:background="@drawable/item_gradient"
+
     tools:context=".FindBooksActivity">
+
+    <ImageView
+        android:id="@+id/iv_arrow_from_find_books"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:clickable="true"
+        android:contentDescription="@string/back_from_view_books"
+        android:focusable="true"
+        android:src="@drawable/arrow" />
 
     <TextView
         android:id="@+id/book_find_section_title"
@@ -24,71 +37,49 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/iv_arrow_from_find_books"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="70dp"
-        android:clickable="true"
-        android:contentDescription="@string/back_from_view_books"
-        android:focusable="true"
-        android:src="@drawable/arrow" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_search_book"
-        android:layout_below="@+id/book_find_section_title"
-
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_below="@+id/book_find_section_title"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="0dp"
         app:cardBackgroundColor="#C1FFFFFF"
         app:cardCornerRadius="25dp"
+
         app:cardElevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <SearchView
                 android:id="@+id/search_book"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:iconifiedByDefault="false"
                 android:isScrollContainer="true"
-                android:searchIcon="@null"
                 android:queryBackground="@android:color/transparent"
                 android:queryHint="Search Here"
-                android:searchHintIcon="@null">
+                android:searchHintIcon="@null"
+                android:searchIcon="@null">
 
             </SearchView>
-
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <ListView
         android:id="@+id/list_with_books"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_below="@+id/card_search_book"
-        android:layout_centerHorizontal="true" />
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/list_with_books"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/card_search_book"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:orientation="horizontal">-->
-
-<!--    </LinearLayout>-->
+        android:layout_below="@+id/book_find_section_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:padding="15dp" />
 
 </RelativeLayout>
