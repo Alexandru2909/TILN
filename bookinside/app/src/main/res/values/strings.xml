@@ -54,4 +54,10 @@
     <string name="bookTitle">Title</string>
     <string name="bookDescription">O scurta si ingenioasa descriere a cartii pe care o vom lua din baza de date, sper hhhhhhhhhhhhhhhhhhhhhhgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</string>
 
+    <string-array name="icons">
+        <item>@drawable/star</item>
+        <item>@drawable/patratel</item>
+        <item>@drawable/go</item>
+    </string-array>
+
 </resources>
