@@ -61,5 +61,6 @@
     </string-array>
 
     <string name="main_no_items">No books to display</string>
+    <string name="back_from_book_page" />
 
 </resources>

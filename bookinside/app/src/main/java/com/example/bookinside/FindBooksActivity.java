@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -47,10 +48,11 @@ public class FindBooksActivity extends AppCompatActivity {
         //3.Most Important - Custom Adapter extend ArrayAdapter class
 
         for (int i = 0; i < book_list.length; i++) {
-            books.add(new BookType(book_list[i], R.drawable.star, R.drawable.patratel, R.drawable.go));
+            books.add(new BookType(book_list[i], R.drawable.bluestar, R.drawable.bluesquare, R.drawable.blackarrow));
         }
 
         myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books));
+
 
 //        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list){
 //
