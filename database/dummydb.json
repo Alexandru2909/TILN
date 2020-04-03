@@ -1,6 +1,13 @@
-{
-    "users":[
-        {"name": "Alex", "password":"Parola123"},
-        {"name": "Florin", "password":"Pass"}
-    ]
-  }
+[{
+    "titlu":"Ion",
+    "autor": "Liviu Rebreanu",
+    "descriere":"Ion este primul roman obiectiv din literatura română, fiind apărut în anul 1920, după o lungă perioadă de elaborare, așa cum însuși autorul menționează în finalul operei, între martie 1913 - iulie 1920. Apariția romanului a stârnit un adevărat entuziasm în epocă, mai ales că nimic din creația nuvelistică de până atunci nu anunța această evoluție spectaculoasă: „Nimic din ce e publicat înainte nu ne putea face să prevedem admirabila dezvoltare a unui scriitor, care a început și a continuat vreo zece ani, nu numai fără strălucire, dar și fără indicații de viitor”, nota Eugen Lovinescu.",
+    "locatii":["satul Pripas"]
+
+    },
+    {
+        "titlu":"Padurea Spanzuratilor",
+        "autor": "Liviu Rebreanu",
+        "descriere":"Pădurea spânzuraților este un roman de război și de analiză psihologică scris de Liviu Rebreanu și publicat în 1922 de către Editura Cartea Românească din București. Romanul reia tema nuvelei anterioare „Catastrofa” (1919), completând-o cu evenimente inspirate din tragedia reală a fratelui scriitorului, sublocotenentul Emil Rebreanu, ce fusese condamnat la moarte și executat în mai 1917 prin spânzurare la Ghimeș pentru încercarea de a traversa frontul în scopul de a se alătura Armatei Române.[2]:p.",
+        "locatii":["satul Parva"]
+        }]
