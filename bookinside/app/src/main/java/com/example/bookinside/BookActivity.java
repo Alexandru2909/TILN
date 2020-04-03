@@ -1,6 +1,7 @@
 package com.example.bookinside;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -25,13 +26,93 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.ui.NavigationUI;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
 public class BookActivity extends AppCompatActivity {
+
+
+    private static String SERVER = "http://192.168.8.105:3000/";
+    HashMap<String,String> req = new HashMap<String,String>();
+    RequestQueue queue;
+    JSONArray res;
+    String description;
+    String photo_url;
+    ArrayList<String> locations = new ArrayList<>();
+
+    public void getBookInfo(){
+        SERVER += "get_book";
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+
+        StringRequest request = new StringRequest(Request.Method.POST, SERVER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    description = jsonObject.getString("descriere");
+                    System.out.println(description);
+
+                    for (int i = 0; i < jsonObject.getJSONArray("locatii").length(); i++){
+                        locations.add(jsonObject.getJSONArray("locatii").get(i).toString());
+                    }
+                    System.out.println(locations);
+
+                }
+                catch (JSONException e){
+                    System.out.println("_____________");
+                    e.printStackTrace();
+                    description = "There was something wrong";
+                    progressDialog.dismiss();
+                }
+                progressDialog.dismiss();
+                //do something
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        description = "Error communicating with server";
+                        System.out.println("___________________No can do");
+                        progressDialog.dismiss();
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() {
+                return req;
+            }
+        };
+
+        request.setShouldCache(false);
+        request.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(request);
+        SERVER = "http://192.168.8.105:3000/";
+
+    }
+
 
     RelativeLayout.LayoutParams layoutparams;
     RelativeLayout.LayoutParams layoutparams1;
@@ -51,6 +132,9 @@ public class BookActivity extends AppCompatActivity {
         myDialog = new Dialog(this);
         setContentView(R.layout.activity_book_page);
 
+
+
+
         bookTitle = (TextView) findViewById(R.id.book_title);
         bookAuthor = (TextView) findViewById(R.id.book_author);
         bookCover = (ImageView) findViewById(R.id.book_cover_image);
@@ -62,18 +146,27 @@ public class BookActivity extends AppCompatActivity {
         final String author = getIntent().getStringExtra("author");
         final String title = getIntent().getStringExtra("title");
 
-//        System.out.println(author);
+
+        // Test for the db connection and data retrieval
+        queue = Volley.newRequestQueue(this);
+        req.put("title", "Ion");
+        req.put("author", "Liviu Rebreanu");
+        getBookInfo();
+
+        bookDescription.setText(description);
 
         bookAuthor.setText(author);
         bookTitle.setText(title);
 
+        // Hardcoded data for location
+//        String[] locations = new String[]{"Strada Jean de la Craiova", "Padurea Hoia Baciu", "Lacul Lebedelor"};
 
-        String[] locations = new String[]{"Strada Jean de la Craiova", "Padurea Hoia Baciu", "Lacul Lebedelor"};
-
-
-        for (int i = 0; i < locations.length; i++) {
-            bookLocations.addView(CreateBlankCardView(CreateCardView(locations[i])));
+        System.out.println("------------------------------");
+        for (int i = 0; i < locations.size(); i++) {
+            bookLocations.addView(CreateBlankCardView(CreateCardView(locations.get(i))));
         }
+        System.out.println(locations);
+        System.out.println(description);
 
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -81,17 +174,6 @@ public class BookActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-//        bookLocations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                Toast.makeText(getApplicationContext(),
-//                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-//                        .show();
-//            }
-//        });
 
     }
 
