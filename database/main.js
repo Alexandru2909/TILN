@@ -3,7 +3,7 @@
 var myDB = require("./dummydb")
 // exemplu de acces in bd
 
-function search_book(title,db){
+function search_books(title,db){
   var data =[];
   for (let i of db){
     if ( i.titlu.toLowerCase().search(title.toLowerCase()) != -1 || i.autor.toLowerCase().search(title.toLowerCase()) != -1 )
@@ -11,7 +11,15 @@ function search_book(title,db){
   }
   return data;
 }
-console.log(search_book("Ion",myDB));
+
+function search_book(title,author,db){
+  var data =[];
+  for (let i of db){
+    if ( i.titlu.toLowerCase() == title.toLowerCase() && i.autor.toLowerCase() == author.toLowerCase())
+      data.push(i);
+      return data;
+  }
+}
 
 var express        =        require("express");
 var bodyParser     =        require("body-parser");
@@ -30,11 +38,18 @@ app.post('/login',function(req,res){
   console.log("User name = "+user_name+", password is "+password);
   res.end("yes");
 });
+app.post("/get_book",function(req,res){
+  var title = req.body[0].title;
+  var author = req.body[0].author;
+  var x = search_book(title,author,myDB);
+  console.log(x);
+  res.send(x);
+});
 app.post("/get_books",function(req,res){
   // Dat fiind ca rezultatul e trimis ca obiect arrayJSON,trebuie sa apelam req.body[0].ceva;
   // console.log(req,req.body[0],req.body.title,req.body[0].title);
   var title = req.body[0].title;
-  var x = search_book(title,myDB);
+  var x = search_books(title,myDB);
   console.log(x);
   res.send(x);
 });

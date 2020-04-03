@@ -109,9 +109,6 @@ public class ViewBooksActivity extends AppCompatActivity {
 
         ///TEST
         queue = Volley.newRequestQueue(this);
-        req.put("user", "alex");
-        req.put("password","parola123");
-        GetBooks();
 //        REMEMBER,this is async call
 //        System.out.println("yto "+res);
         //END TEST

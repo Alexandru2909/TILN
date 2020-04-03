@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -49,8 +50,8 @@ import java.util.Objects;
 public class BookActivity extends AppCompatActivity {
 
 
-    private static String SERVER = "http://192.168.8.105:3000/";
-    HashMap<String,String> req = new HashMap<String,String>();
+    private static String SERVER = "http://192.168.1.7:3000";
+    JSONArray req;
     RequestQueue queue;
     JSONArray res;
     String description;
@@ -58,58 +59,36 @@ public class BookActivity extends AppCompatActivity {
     ArrayList<String> locations = new ArrayList<>();
 
     public void getBookInfo(){
-        SERVER += "get_book";
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-
-        StringRequest request = new StringRequest(Request.Method.POST, SERVER, new Response.Listener<String>() {
+        SERVER += "/get_book";
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONArray response) {
                 try {
-                    JSONObject jsonObject = new JSONObject(response);
-
+                    JSONObject jsonObject = response.getJSONObject(0);
                     description = jsonObject.getString("descriere");
-                    System.out.println(description);
-
                     for (int i = 0; i < jsonObject.getJSONArray("locatii").length(); i++){
                         locations.add(jsonObject.getJSONArray("locatii").get(i).toString());
                     }
-                    System.out.println(locations);
-
-                }
-                catch (JSONException e){
-                    System.out.println("_____________");
+                } catch (JSONException e) {
                     e.printStackTrace();
-                    description = "There was something wrong";
-                    progressDialog.dismiss();
                 }
-                progressDialog.dismiss();
-                //do something
-
             }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        description = "Error communicating with server";
-                        System.out.println("___________________No can do");
-                        progressDialog.dismiss();
-                    }
-                }){
+        }, new Response.ErrorListener() {
             @Override
-            protected Map<String, String> getParams() {
-                return req;
-            }
-        };
+            public void onErrorResponse(VolleyError error) {
 
-        request.setShouldCache(false);
-        request.setRetryPolicy(new DefaultRetryPolicy(3000,
+                System.out.println("Volley"+ error.toString());
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
+////////////////////
+        jsonArrayRequest.setShouldCache(false);
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(3000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(request);
-        SERVER = "http://192.168.8.105:3000/";
+        queue.add(jsonArrayRequest);
 
     }
 
@@ -141,7 +120,7 @@ public class BookActivity extends AppCompatActivity {
         bookDescription = (TextView) findViewById(R.id.book_description);
         bookLocations = (LinearLayout) findViewById(R.id.locations_list);
         backBtn = (ImageView) findViewById(R.id.back_from_book_page);
-
+        req = new JSONArray();
 
         final String author = getIntent().getStringExtra("author");
         final String title = getIntent().getStringExtra("title");
@@ -149,8 +128,15 @@ public class BookActivity extends AppCompatActivity {
 
         // Test for the db connection and data retrieval
         queue = Volley.newRequestQueue(this);
-        req.put("title", "Ion");
-        req.put("author", "Liviu Rebreanu");
+        JSONObject obj = new JSONObject();
+        try{
+            obj.put("title", "Ion");
+            obj.put("author", "Liviu Rebreanu");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        req.put(obj);
         getBookInfo();
 
         bookDescription.setText(description);

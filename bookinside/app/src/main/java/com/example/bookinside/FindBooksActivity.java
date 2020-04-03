@@ -2,13 +2,16 @@ package com.example.bookinside;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -41,11 +44,11 @@ public class FindBooksActivity extends AppCompatActivity {
     public  void  GetBooks() {
         //Define the endpoint called by funct
         SERVER += "/get_books";
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+//        START LOADING
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 //            return point of POST
-        System.out.println("lookd");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -58,14 +61,15 @@ public class FindBooksActivity extends AppCompatActivity {
                     }
                 }
                 myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books));
-                progressDialog.dismiss();
+//                CLEAR LOADING
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
                 System.out.println("Volley"+ error.toString());
-                progressDialog.dismiss();
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
 
