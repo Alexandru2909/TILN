@@ -41,6 +41,7 @@ public class BookActivity extends AppCompatActivity {
     TextView bookTitle, bookAuthor, bookDescription;
     ImageView bookCover;
     LinearLayout bookLocations;
+    ImageView backBtn;
 
     ListView personsListView;
 
@@ -55,6 +56,8 @@ public class BookActivity extends AppCompatActivity {
         bookCover = (ImageView) findViewById(R.id.book_cover_image);
         bookDescription = (TextView) findViewById(R.id.book_description);
         bookLocations = (LinearLayout) findViewById(R.id.locations_list);
+        backBtn = (ImageView) findViewById(R.id.back_from_book_page);
+
 
         final String author = getIntent().getStringExtra("author");
         final String title = getIntent().getStringExtra("title");
@@ -72,7 +75,12 @@ public class BookActivity extends AppCompatActivity {
             bookLocations.addView(CreateBlankCardView(CreateCardView(locations[i])));
         }
 
-
+        backBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                onBackPressed();
+            }
+        });
 
 
 //        bookLocations.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -56,6 +56,27 @@ public class MyAdapter extends ArrayAdapter {
             viewHolder = (ViewHolder) row.getTag();
         }
 
+        row.findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Hello there!");
+            }
+        });
+
+        row.findViewById(R.id.star).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("General Kenobi");
+            }
+        });
+
+        row.findViewById(R.id.patratel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("You are a bold one");
+            }
+        });
+
         viewHolder.tv_bookInfo.setText(books.get(position).bookInfo);
         viewHolder.iv_star.setImageResource(books.get(position).starIcon);
         viewHolder.iv_patratel.setImageResource(books.get(position).patratelIcon);

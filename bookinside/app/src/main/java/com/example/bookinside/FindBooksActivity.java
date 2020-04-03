@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -112,6 +113,7 @@ public class FindBooksActivity extends AppCompatActivity {
 //        }
 //
 //        myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books));
+
 
 //        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list){
 //
