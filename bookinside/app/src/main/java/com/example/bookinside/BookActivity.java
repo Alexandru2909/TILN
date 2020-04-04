@@ -67,9 +67,9 @@ public class BookActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 try {
                     JSONObject jsonObject = response.getJSONObject(0);
-                    description = jsonObject.getString("descriere");
+                    bookDescription.setText(jsonObject.getString("descriere"));
                     for (int i = 0; i < jsonObject.getJSONArray("locatii").length(); i++){
-                        locations.add(jsonObject.getJSONArray("locatii").get(i).toString());
+                        bookLocations.addView(CreateBlankCardView(CreateCardView(jsonObject.getJSONArray("locatii").get(i).toString())));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -147,10 +147,7 @@ public class BookActivity extends AppCompatActivity {
         // Hardcoded data for location
 //        String[] locations = new String[]{"Strada Jean de la Craiova", "Padurea Hoia Baciu", "Lacul Lebedelor"};
 
-        System.out.println("------------------------------");
-        for (int i = 0; i < locations.size(); i++) {
-            bookLocations.addView(CreateBlankCardView(CreateCardView(locations.get(i))));
-        }
+
         System.out.println(locations);
         System.out.println(description);
 
