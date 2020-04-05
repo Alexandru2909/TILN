@@ -1,6 +1,8 @@
 package com.example.bookinside;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,16 +12,73 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.w3c.dom.ls.LSOutput;
 
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static String SERVER = "http://192.168.8.105:3000";
+    HashMap<String, String> req = new HashMap<>();
+    RequestQueue queue;
+    String res;
+
+//    SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+//
+//    SharedPreferences.Editor editor = sharedPref.edit();
+
+
+    public void LogIn() {
+        SERVER += "/login";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, SERVER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                res = response;
+                System.out.println(response);
+                if (response.equals("True")){
+//                    editor.putString("User", etUsername.getText().toString());
+//                    editor.putString("Password", etPassword.getText().toString());
+//                    editor.commit();
+                }
+            }
+        },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    res = "False";
+                    error.printStackTrace();
+                }
+            }){
+            @Override
+            protected Map<String, String> getParams() {
+                return req;
+            }
+        };
+        postRequest.setShouldCache(false);
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
+    }
+
 
     final String url_Login = "";
     EditText etUsername, etPassword;
@@ -122,8 +181,17 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent1 = new Intent(getBaseContext(), DashboardActivity.class);
         intent1.putExtra("username", Username);
 
-        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent1);
+        queue = Volley.newRequestQueue(this);
+        req.put("user", etUsername.getText().toString());
+        req.put("password", etPassword.getText().toString());
+        LogIn();
+        System.out.println(res);
+
+        if (res == "True"){
+            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent1);
+        }
+
     }
     public void openForgetPassActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);

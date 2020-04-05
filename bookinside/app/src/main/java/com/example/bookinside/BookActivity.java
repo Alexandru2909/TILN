@@ -46,11 +46,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import okhttp3.internal.connection.Exchange;
+
 
 public class BookActivity extends AppCompatActivity {
 
 
-    private static String SERVER = "http://192.168.1.7:3000";
+    private static String SERVER = "http://192.168.8.105:3000";
     JSONArray req;
     RequestQueue queue;
     JSONArray res;
@@ -90,6 +92,28 @@ public class BookActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsonArrayRequest);
 
+    }
+
+    public void getPeople(){
+        SERVER += "/get_people";
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Volley"+ error.toString());
+            }
+        });
     }
 
 
@@ -139,7 +163,7 @@ public class BookActivity extends AppCompatActivity {
         req.put(obj);
         getBookInfo();
 
-        bookDescription.setText(description);
+//        bookDescription.setText(description);
 
         bookAuthor.setText(author);
         bookTitle.setText(title);
@@ -148,8 +172,8 @@ public class BookActivity extends AppCompatActivity {
 //        String[] locations = new String[]{"Strada Jean de la Craiova", "Padurea Hoia Baciu", "Lacul Lebedelor"};
 
 
-        System.out.println(locations);
-        System.out.println(description);
+//        System.out.println(locations);
+//        System.out.println(description);
 
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
