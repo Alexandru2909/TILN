@@ -2,13 +2,15 @@
     {  
         "id":0,
         "name": "satul Pripas",
-        "latitude": "47.260000N",
-        "longitude": "24.320000E"
+        "latitude": 47.260000,
+        "longitude": 24.320000,
+        "people_near":[1]
     },
     {  
         "id":1,
         "name": "satul Parva", 
-        "latitude": "47.392700N",
-        "longitude": "24.544100E"
+        "latitude": 47.392700,
+        "longitude": 24.544100,
+        "people_near":[1,0]
     }
 ]
