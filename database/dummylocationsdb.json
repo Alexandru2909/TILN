@@ -1,0 +1,14 @@
+[
+    {  
+        "id":0,
+        "name": "satul Pripas",
+        "latitude": "47.260000N",
+        "longitude": "24.320000E"
+    },
+    {  
+        "id":1,
+        "name": "satul Parva", 
+        "latitude": "47.392700N",
+        "longitude": "24.544100E"
+    }
+]
