@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -49,6 +51,8 @@ public class FindBooksActivity extends AppCompatActivity {
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 //            return point of POST
+        final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -60,7 +64,10 @@ public class FindBooksActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books));
+
+                String username = getIntent().getStringExtra("username");
+                System.out.println(username);
+                myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books, username));
 //                CLEAR LOADING
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }

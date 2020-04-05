@@ -6,17 +6,12 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -29,18 +24,13 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import org.json.JSONArray;
-import org.w3c.dom.ls.LSOutput;
-
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String SERVER = "http://192.168.1.3:3000";
+    private static String SERVER = "http://192.168.8.105:3000/login";
     HashMap<String, String> req = new HashMap<>();
     RequestQueue queue;
     String res;
@@ -48,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
 
     public void LogIn() {
-        SERVER += "/login";
+//        SERVER += "/login";
         StringRequest postRequest = new StringRequest(Request.Method.POST, SERVER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

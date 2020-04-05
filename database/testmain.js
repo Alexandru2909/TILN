@@ -47,4 +47,12 @@ app.post("/get_books",function(req,res){
 });
 app.listen(3000,function(){
   console.log("Started on PORT 3000");
+});
+app.post("/add_on", function(req,res){
+  var title = req.body.title;
+  var list_nr = req.body.list;
+  var user = req.body.user;
+  console.log("safasfas");
+  console.log(title, list_nr, user);
+  res.send("all good");
 })
