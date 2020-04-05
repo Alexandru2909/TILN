@@ -2,11 +2,17 @@
         "id":0,
         "name": "Bob",
         "password": "B0Brulzzz",
-        "email":"bobtheBo$$@smechermail.org"
+        "email":"bobtheBo$$@smechermail.org",
+        "wishlist": [2,3],
+        "currently":[0],
+        "read":[1]
     },
     {
         "id":1,
         "name": "Drago",
         "password": "parola",
-        "email": "smecherdeSmecher@dragosmail.com"
+        "email": "smecherdeSmecher@dragosmail.com",
+        "wishlist": [2,3],
+        "currently":[0],
+        "read":[1]
     }]

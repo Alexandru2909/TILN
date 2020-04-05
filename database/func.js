@@ -19,13 +19,24 @@ module.exports = {
         return data;
     }
   },
-  search_user:function(user,pass){
+  check_user:function(user,pass){
     for (var i=0;i<userDB.length;i++){
-      console.log(userDB[i]);
       if(userDB[i].name == user && userDB[i].password == pass){
         return true;
       }
     }
     return false;
+  },
+  get_user:function(id){
+    for ( var i=0;i<userDB.length;i++){
+      if(userDB[i].id == id)
+        return userDB[i];
+    }
+  },
+  get_book:function(id){
+    for ( var i=0;i<bookDB.length;i++){
+      if(bookDB[i].id == id)
+        return bookDB[i];
+    }
   }
 }

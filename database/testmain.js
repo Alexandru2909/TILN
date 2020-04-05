@@ -20,11 +20,10 @@ app.post('/login',function(req,res){
   var user_name=req.body.user;
   var password=req.body.password;
   console.log("User name = "+user_name+", password is "+password);
-  if( tools.search_user(user_name,password))
+  if( tools.check_user(user_name,password))
     res.send("True");
   else
     res.send("False");
-  res.end("yes");
 });
 app.post("/get_book",function(req,res){
   var title = req.body[0].title;
@@ -44,4 +43,4 @@ app.post("/get_books",function(req,res){
 // app.listen(3000,function(){
 //   console.log("Started on PORT 3000");
 // })
-console.log(tools.search_user("Drago","parola"));
+console.log(tools.get_user(1));
