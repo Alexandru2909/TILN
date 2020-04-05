@@ -3,6 +3,7 @@ package com.example.bookinside;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,6 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.w3c.dom.ls.LSOutput;
@@ -41,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     RequestQueue queue;
     String res;
     SharedPreferences.Editor editor ;
-
+    private FusedLocationProviderClient fusedLocationClient;
 
     public void LogIn() {
         SERVER += "/login";
@@ -97,9 +101,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
         etUsername = (EditText)findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
@@ -108,6 +114,22 @@ public class LoginActivity extends AppCompatActivity {
         btnForgetPass = (TextView) findViewById(R.id.tv_forget_pass_button);
         btnRegister = (TextView) findViewById(R.id.tv_register_here_button);
 
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        System.out.println("Hello?");
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+
+                            req.put("longitude",String.valueOf(location.getLongitude()));
+                            req.put("latitude",String.valueOf(location.getLatitude()));
+                        }
+                        else{
+                            System.out.println("can't get locations..");
+                        }
+                    }
+                });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

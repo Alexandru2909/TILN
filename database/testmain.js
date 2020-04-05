@@ -20,8 +20,13 @@ app.post('/login',function(req,res){
   var user_name=req.body.user;
   var password=req.body.password;
   console.log("User name = "+user_name+", password is "+password);
-  if( tools.check_user(user_name,password))
+  var id = tools.check_user(user_name,password)
+  if(id != false){
     res.send("True");
+    if(req.body.latitude != undefined && req.body.longitude != undefined){
+      tools.set_location(id,req.body.latitude,req.body.longitude);
+    }
+  }
   else
     res.send("False");
 });

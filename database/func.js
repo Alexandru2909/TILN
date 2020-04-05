@@ -1,6 +1,7 @@
 var bookDB = require('./dummybooksdb.json');
 var userDB = require('./dummyusersdb.json');
 var locationsDB = require('./dummylocationsdb.json');
+const fs = require('fs');
 module.exports = {
   search_books:function(title){
     var data =[];
@@ -22,7 +23,7 @@ module.exports = {
   check_user:function(user,pass){
     for (var i=0;i<userDB.length;i++){
       if(userDB[i].name == user && userDB[i].password == pass){
-        return true;
+        return userDB[i].id;
       }
     }
     return false;
@@ -37,6 +38,18 @@ module.exports = {
     for ( var i=0;i<bookDB.length;i++){
       if(bookDB[i].id == id)
         return bookDB[i];
+    }
+  },
+  set_location:function(id,lat,lon){
+    for ( var i=0;i<userDB.length;i++){
+      if(userDB[i].id == id){
+        userDB[i].latitude = Number(lat);
+        userDB[i].longitude = Number(lon);
+        fs.writeFile('dummyusersdb.json', JSON.stringify(userDB), (err) => {
+          if (err) throw err;
+          console.log('Data written to file');
+      });
+    }
     }
   }
 }
