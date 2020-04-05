@@ -36,14 +36,11 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String SERVER = "http://192.168.8.105:3000";
+    private static String SERVER = "http://192.168.1.3:3000";
     HashMap<String, String> req = new HashMap<>();
     RequestQueue queue;
     String res;
-
-//    SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-//
-//    SharedPreferences.Editor editor = sharedPref.edit();
+    SharedPreferences.Editor editor ;
 
 
     public void LogIn() {
@@ -54,9 +51,10 @@ public class LoginActivity extends AppCompatActivity {
                 res = response;
                 System.out.println(response);
                 if (response.equals("True")){
-//                    editor.putString("User", etUsername.getText().toString());
-//                    editor.putString("Password", etPassword.getText().toString());
-//                    editor.commit();
+                    editor.putString("User", etUsername.getText().toString());
+                    editor.putString("Password", etPassword.getText().toString());
+                    editor.commit();
+                    openDashActivity();
                 }
             }
         },
@@ -102,6 +100,10 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = (EditText)findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
 
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+
         btnLogin = (TextView)findViewById(R.id.tv_login_button);
         btnForgetPass = (TextView) findViewById(R.id.tv_forget_pass_button);
         btnRegister = (TextView) findViewById(R.id.tv_register_here_button);
@@ -110,8 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateUsername() && validatePassword()) {
-                    String Username = etUsername.getText().toString();
-                    openDashActivity(Username);
+                    checkUser();
                 }
             }
         });
@@ -177,22 +178,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void openDashActivity(String Username) {
-        Intent intent1 = new Intent(getBaseContext(), DashboardActivity.class);
-        intent1.putExtra("username", Username);
-
+    public void checkUser() {
         queue = Volley.newRequestQueue(this);
         req.put("user", etUsername.getText().toString());
         req.put("password", etPassword.getText().toString());
         LogIn();
-        System.out.println(res);
-
-        if (res == "True"){
-            intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent1);
-        }
-
+//        System.out.println(res);
     }
+    public void openDashActivity(){
+        Intent intent1 = new Intent(getBaseContext(), DashboardActivity.class);
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        intent1.putExtra("username", sharedPref.getString("User","user"));
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent1);
+        }
     public void openForgetPassActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         startActivity(intent);

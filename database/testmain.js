@@ -43,4 +43,3 @@ app.post("/get_books",function(req,res){
 app.listen(3000,function(){
   console.log("Started on PORT 3000");
 })
-console.log(tools.search_user("Drago","parola"));
