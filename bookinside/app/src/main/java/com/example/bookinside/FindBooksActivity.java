@@ -37,7 +37,7 @@ public class FindBooksActivity extends AppCompatActivity {
     ListView myList;
 
     //    ////////////////////////
-    private static String SERVER = "http://192.168.1.7:3000";
+    private static String SERVER = "http://192.168.8.105:3000";
     RequestQueue queue;
     JSONArray req;
 
