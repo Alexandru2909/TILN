@@ -6,12 +6,17 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -24,13 +29,18 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import org.json.JSONArray;
+import org.w3c.dom.ls.LSOutput;
+
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String SERVER = "http://192.168.8.105:3000/login";
+    private static String SERVER = "http://192.168.1.3:3000/login";
     HashMap<String, String> req = new HashMap<>();
     RequestQueue queue;
     String res;
@@ -38,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
 
     public void LogIn() {
-//        SERVER += "/login";
         StringRequest postRequest = new StringRequest(Request.Method.POST, SERVER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -96,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = (EditText)findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("User_settings", 0);
         editor = sharedPref.edit();
 
 
@@ -108,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        System.out.println("Hello?");
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
 
@@ -199,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void openDashActivity(){
         Intent intent1 = new Intent(getBaseContext(), DashboardActivity.class);
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("User_settings", 0);
         intent1.putExtra("username", sharedPref.getString("User","user"));
         intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent1);
