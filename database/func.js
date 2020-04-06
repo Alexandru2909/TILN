@@ -37,7 +37,7 @@ module.exports = {
   get_book:function(id){
     for ( var i=0;i<bookDB.length;i++){
       if(bookDB[i].id == id)
-        return bookDB[i];
+      return bookDB[i];
     }
   },
   set_location:function(id,lat,lon){
@@ -58,6 +58,7 @@ module.exports = {
     }
   },
   add_book:function(title,author,username,flag){
+    console.log("im here");
     for (let i of bookDB){
       if ( i.titlu.toLowerCase() == title.toLowerCase() && i.autor.toLowerCase() == author.toLowerCase())
         for ( var j=0;j<userDB.length;j++){
@@ -100,5 +101,39 @@ module.exports = {
       }
     }
     return data;
+  },
+  get_people_near:function(location_name){
+    data = []
+    for (let loc of locationsDB){
+      if (loc.name == location_name){
+        for (var i = 0; i < loc.people_near.length; i++){
+          data.push(this.get_user(loc.people_near[i]))
+        }
+      }
+    }
+    return data;
+  },
+  get_user_books:function(user, flag){
+    data = [];
+    for (let usr of userDB){
+      if (usr.name == user){
+        switch (flag){
+          case 0:
+            data = usr.read;
+            break;
+          case 1:
+            data = usr.currently;
+            break;
+          case 2:
+            data = usr.wishlist;
+            break;
+        }
+      }
+    }
+    users = []
+    for (let x of data){
+      users.push(this.get_book(x))
+    }
+    return users;
   }
 }

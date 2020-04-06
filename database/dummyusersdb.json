@@ -1,38 +1,68 @@
 [
     {
-        "id": 0,
-        "name": "Bob",
-        "password": "B0Brulzzz",
-        "email": "bobtheBo$$@smechermail.org",
-        "wishlist": [
-            2,
-            3
-        ],
-        "currently": [
-            0
-        ],
-        "read": [
-            1
-        ],
-        "latitude": 45.23,
-        "longitude": 23.14
+        "id":0,
+        "name":"Bob",
+        "password":"B0Brulzzz",
+        "email":"bobtheBo$$@smechermail.org",
+        "wishlist":[2,3],
+        "currently":[0],
+        "read":[1],
+        "latitude":45.23,
+        "longitude":23.14
     },
     {
-        "id": 1,
-        "name": "Drago",
-        "password": "parola",
-        "email": "smecherdeSmecher@dragosmail.com",
-        "wishlist": [
-            2,
-            3
-        ],
-        "currently": [
-            0
-        ],
-        "read": [
-            1
-        ],
-        "latitude": 45.8478146,
-        "longitude": 27.4210436
+        "id":1,
+        "name":"Drago",
+        "password":"parola",
+        "email":"smecherdeSmecher@dragosmail.com",
+        "wishlist":[2,3],
+        "currently":[0],
+        "read":[1],
+        "latitude":45.8478146,
+        "longitude":27.4210436
+    },
+    {
+        "id":2,
+        "name":"Putzel",
+        "password":"parola",
+        "email":"aproapeSmecher@dragosmail.com",
+        "wishlist":[1],
+        "currently":[0],
+        "read":[2,3],
+        "latitude":45.8478146,
+        "longitude":27.4210436
+    },
+    {
+        "id":3,
+        "name":"Andrei",
+        "password":"parola",
+        "email":"aproapeSmecher@bmwmail.com",
+        "wishlist":[0],
+        "currently":[1,2],
+        "read":[3],
+        "latitude":45.8478146,
+        "longitude":27.4210436
+    },
+    {
+        "id":4,
+        "name":"Andreeea",
+        "password":"parola",
+        "email":"aproapeSmechera@dragosmail.com",
+        "wishlist":[1],
+        "currently":[0],
+        "read":[2,3],
+        "latitude":45.8478146,
+        "longitude":27.4210436
+    },
+    {
+        "id":5,
+        "name":"Florin",
+        "password":"parola",
+        "email":"aproapeSmecher@dragosmail.com",
+        "wishlist":[2],
+        "currently":[0],
+        "read":[1,3],
+        "latitude":45.8478146,
+        "longitude":27.4210436
     }
 ]

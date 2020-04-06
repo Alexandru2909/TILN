@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String SERVER = "http://192.168.1.3:3000/login";
+    private static String SERVER = "http://192.168.8.105:3000/login";
     HashMap<String, String> req = new HashMap<>();
     RequestQueue queue;
     String res;

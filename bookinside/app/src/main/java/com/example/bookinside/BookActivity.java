@@ -54,7 +54,9 @@ public class BookActivity extends AppCompatActivity {
 
     private static String SERVER = "http://192.168.8.105:3000";
     JSONArray req;
+    JSONArray sec_req;
     RequestQueue queue;
+    RequestQueue queue2;
     JSONArray res;
     String description;
     String photo_url;
@@ -92,20 +94,31 @@ public class BookActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsonArrayRequest);
 
+        SERVER = "http://192.168.8.105:3000";
+
     }
 
-    public void getPeople(){
+//    ArrayList<String> pers;
+
+    public void getPeople(final View v){
         SERVER += "/get_people";
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, SERVER, sec_req, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                System.out.println(response);
                 try {
+                    ArrayList<String> pers = new ArrayList<>();
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonObject = response.getJSONObject(i);
+                        pers.add(jsonObject.getString("name"));
                     }
-                } catch (JSONException e) {
 
+//                    for (int i = 0; i < jsonObject.getJSONArray("people").length(); i++) {
+//                    }
+                    ShowPopUp(v, pers);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
@@ -114,6 +127,14 @@ public class BookActivity extends AppCompatActivity {
                 System.out.println("Volley"+ error.toString());
             }
         });
+
+        request.setShouldCache(false);
+        request.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(request);
+
+        SERVER = "http://192.168.8.105:3000";
     }
 
 
@@ -182,11 +203,13 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
+//        queue2 = Volley.newRequestQueue(this);
+
     }
 
-    public CardView CreateCardView(String text){
+    public CardView CreateCardView(final String text){
         Context context;
-        CardView cardview;
+        final CardView cardview;
         final TextView textview;
         context = getApplicationContext();
 
@@ -224,7 +247,23 @@ public class BookActivity extends AppCompatActivity {
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowPopUp(view);
+//                queue2 = Volley.newRequestQueue(getBaseContext());
+
+                sec_req = new JSONArray();
+
+                JSONObject obj = new JSONObject();
+                try{
+                    obj.put("location", textview.getText().toString());
+                    System.out.println(textview.getText().toString());
+                    System.out.println("__________________");
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+                System.out.println(obj);
+                sec_req.put(obj);
+                getPeople(view);
+//                ShowPopUp(view);
 
             }
         });
@@ -259,7 +298,7 @@ public class BookActivity extends AppCompatActivity {
         return cardview;
     }
 
-    public void ShowPopUp(View v) {
+    public void ShowPopUp(View v, ArrayList<String> persons) {
         myDialog.setContentView(R.layout.custompopup);
 
         ImageView btnAdd, btnClose;
@@ -276,17 +315,17 @@ public class BookActivity extends AppCompatActivity {
         Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         myDialog.show();
 
-        String[] persons = new String[]{"Ion Ion", "Maria Aioanei", "Gheorghe Popa"};
+//        String[] persons = new String[]{"Ion Ion", "Maria Aioanei", "Gheorghe Popa"};
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < persons.length; ++i) {
-            list.add(persons[i]);
-        }
+//        final ArrayList<String> list = new ArrayList<String>();
+//        for (int i = 0; i < persons.size(); ++i) {
+//            list.add(persons.get(i));
+//        }
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
+                android.R.layout.simple_list_item_1, persons);
 
-        System.out.println("_____________________________");
-        System.out.println(personsListView);
+//        System.out.println("_____________________________");
+//        System.out.println(personsListView);
         personsListView.setAdapter(adapter);
 
     }

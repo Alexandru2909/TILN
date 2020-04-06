@@ -39,13 +39,13 @@ public class FindBooksActivity extends AppCompatActivity {
     ListView myList;
 
     //    ////////////////////////
-    private static String SERVER = "http://192.168.8.105:3000";
+    private static String SERVER = "http://192.168.8.105:3000/get_books";
     RequestQueue queue;
     JSONArray req;
 
     public  void  GetBooks() {
         //Define the endpoint called by funct
-        SERVER += "/get_books";
+//        SERVER += "/get_books";
 //        START LOADING
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

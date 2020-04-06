@@ -33,7 +33,13 @@ app.post('/login',function(req,res){
 app.post("/get_book",function(req,res){
   var title = req.body[0].title;
   var author = req.body[0].author;
-  var x = tools.search_book(title,author,myDB);
+  var x = tools.search_books(title,author,myDB);
+    data = [];
+    for (var k = 0; k < x[0].locatii.length; k++){
+      data.push(tools.get_location(Number(x[0].locatii[k])).name);
+      // console.log(x[0].locatii[k]);
+    }
+    x[0].locatii = data;
   console.log(x);
   res.send(x);
 });
@@ -42,6 +48,14 @@ app.post("/get_books",function(req,res){
   // console.log(req,req.body[0],req.body.title,req.body[0].title);
   var title = req.body[0].title;
   var x = tools.search_books(title,myDB);
+  for (var j = 0; j < x.length; j++){
+  data = [];
+    for (var k = 0; k < x[j].locatii.length; k++){
+      data.push(tools.get_location(Number(x[j].locatii[k])).name);
+      // console.log(x[j].locatii[k]);
+    }
+    x[j].locatii = data;
+  }
   console.log(x);
   res.send(x);
 });
@@ -56,10 +70,27 @@ app.listen(3000,function(){
   console.log("Started on PORT 3000");
 });
 app.post("/add_on", function(req,res){
-  var title = req.body.title;
-  var list_nr = req.body.list;
+  var title_author = req.body.title.split(" - ");
+  var title = title_author[0];
+  var author = title_author[1];
+  var flag = req.body.list;
   var user = req.body.user;
-  console.log("safasfas");
-  console.log(title, list_nr, user);
+  tools.add_book(title, author, user, flag)
+  console.log(title, author, flag, user);
   res.send("all good");
+});
+app.post("/get_people", function(req, res){
+  var location = req.body[0].location;
+  var x = tools.get_people_near(location);
+  console.log(x);
+  res.send(x);
+  console.log(location);
+});
+app.post("/get_user_books", function(req, res){
+  var flag = req.body[0].flag;
+  var user = req.body[0].user;
+  console.log(flag, user);
+  var x = tools.get_user_books(user, flag);
+  res.send(x)
+  console.log(x);
 })

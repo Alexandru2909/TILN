@@ -119,8 +119,7 @@ public class MyAdapter extends ArrayAdapter {
         row.findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Hello there!");
-                req.put("list", "0");
+                req.put("list", "2");
                 req.put("user", username);
                 req.put("title", viewHolder.tv_bookInfo.getText().toString());
                 addBook();
@@ -130,8 +129,7 @@ public class MyAdapter extends ArrayAdapter {
         row.findViewById(R.id.star).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("General Kenobi");
-                req.put("list", "1");
+                req.put("list", "3");
                 req.put("user", username);
                 req.put("title", viewHolder.tv_bookInfo.getText().toString());
                 addBook();
@@ -141,8 +139,7 @@ public class MyAdapter extends ArrayAdapter {
         row.findViewById(R.id.patratel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("You are a bold one");
-                req.put("list", "2");
+                req.put("list", "1");
                 req.put("user", username);
                 req.put("title", viewHolder.tv_bookInfo.getText().toString());
                 addBook();

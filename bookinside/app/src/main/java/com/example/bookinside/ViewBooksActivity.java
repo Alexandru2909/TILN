@@ -29,8 +29,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -47,47 +52,46 @@ import java.util.Objects;
 public class ViewBooksActivity extends AppCompatActivity {
 
 //    ////////////////////////
-        private static String SERVER = "http://192.168.1.4:3000/";
-        HashMap<String,String> req = new HashMap<String,String>();
-        RequestQueue queue;
-        String res = "";
+private static String SERVER = "http://192.168.8.105:3000/get_user_books";
+    JSONArray req;
+    RequestQueue queue;
 
-        public  void  GetBooks() {
-            //Define the endpoint called by funct
-            SERVER += "login";
-//            return point of POST
-            StringRequest postRequest = new StringRequest(Request.Method.POST, SERVER,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // response
-                            System.out.println("Response" + response);
-                            res = response;
-//                            Or do some other stuff
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // error
-                            res = "Error,Response";
-                            error.printStackTrace();
-                            System.out.println("Error,Response");
-                        }
+
+    public void getUserBooks(){
+//        SERVER += "/get_user_books";
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        linearLayout.addView(CreateBlankCardView(CreateCardView(jsonObject.getString("titlu") + " - " + jsonObject.getString("autor"))));
                     }
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    return req;
                 }
-            };
-            //FOR LOCALHOST
-            postRequest.setShouldCache(false);
-            postRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            queue.add(postRequest);
-        }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println("Volley"+ error.toString());
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
+////////////////////
+        jsonArrayRequest.setShouldCache(false);
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonArrayRequest);
+
+//        SERVER = "http://192.168.8.105:3000";
+
+    }
 
     RelativeLayout.LayoutParams layoutparams;
     RelativeLayout.LayoutParams layoutparams1;
@@ -109,9 +113,34 @@ public class ViewBooksActivity extends AppCompatActivity {
 
         ///TEST
         queue = Volley.newRequestQueue(this);
-//        REMEMBER,this is async call
-//        System.out.println("yto "+res);
-        //END TEST
+        req = new JSONArray();
+        JSONObject obj = new JSONObject();
+        try {
+            int flag = -1;
+            obj.put("user", getIntent().getStringExtra("username"));
+            switch (getIntent().getStringExtra("title")){
+                case "Wishlist":
+                    flag = 2;
+                    break;
+                case "Reading now":
+                    flag = 1;
+                    break;
+                case "Your books":
+                    flag = 0;
+                    break;
+                default:
+                    break;
+            }
+            obj.put("flag", flag);
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
+        req.put(obj);
+        getUserBooks();
+
+
         btnAdd = (ImageView) findViewById(R.id.iv_add_book);
         linearLayout = (LinearLayout) findViewById(R.id.addbookhere);
         btnBack = (ImageView) findViewById(R.id.iv_arrow_from_view_books);
@@ -136,15 +165,15 @@ public class ViewBooksActivity extends AppCompatActivity {
             }
         });
 
-        String[] books = {"Book 1 - Author 1", "Book 2 - Author 2", "Book 3 - Author 3",
-                "Book 4 - Author 4", "Book 5 - Author 5", "Book 6 - Author 6", "Book 7 - Author7",
-                "Book 8 - Author 8" , "Book 9 - Author 9" , "Book 10 - Author 10"};
-
-        List<CardView> cardViews = new ArrayList<>();
-
-        for (int i = 0; i < books.length; i++) {
-            linearLayout.addView(CreateBlankCardView(CreateCardView(books[i])));
-        }
+//        String[] books = {"Book 1 - Author 1", "Book 2 - Author 2", "Book 3 - Author 3",
+//                "Book 4 - Author 4", "Book 5 - Author 5", "Book 6 - Author 6", "Book 7 - Author7",
+//                "Book 8 - Author 8" , "Book 9 - Author 9" , "Book 10 - Author 10"};
+//
+//        List<CardView> cardViews = new ArrayList<>();
+//
+//        for (int i = 0; i < books.length; i++) {
+//            linearLayout.addView(CreateBlankCardView(CreateCardView(books[i])));
+//        }
 
     }
 
