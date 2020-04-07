@@ -18,7 +18,7 @@
         "name": "Valea Muresului", 
         "latitude": 46.392700,
         "longitude": 24.044100,
-        "people_near":[1,0, 5, 2]
+        "people_near":[1,0, 5]
     },
     {  
         "id":3,
@@ -32,6 +32,6 @@
         "name": "Romania", 
         "latitude": 45.052700,
         "longitude": 24.244100,
-        "people_near":[2,3]
+        "people_near":[3]
     }
 ]

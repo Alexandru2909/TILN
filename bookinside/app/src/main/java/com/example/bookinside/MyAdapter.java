@@ -34,7 +34,7 @@ public class MyAdapter extends ArrayAdapter {
     String username;
 
 
-    private static String SERVER = "http://192.168.8.105:3000/add_on";
+    private String SERVER ;
     HashMap<String, String> req = new HashMap<>();
     RequestQueue queue;
     String res;
@@ -71,6 +71,8 @@ public class MyAdapter extends ArrayAdapter {
 
     public MyAdapter(Context context, int layout, ArrayList<BookType> books, String username) {
         super(context, layout);
+        SERVER = global.getInstance().getIp()
+                + "/add_on";
         this.books = books;
         this.username = username;
     }

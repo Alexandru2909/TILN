@@ -52,7 +52,7 @@ import java.util.Objects;
 public class ViewBooksActivity extends AppCompatActivity {
 
 //    ////////////////////////
-private static String SERVER = "http://192.168.8.105:3000/get_user_books";
+    private String SERVER = global.getInstance().getIp() + "/get_user_books";
     JSONArray req;
     RequestQueue queue;
 
@@ -271,8 +271,7 @@ private static String SERVER = "http://192.168.8.105:3000/get_user_books";
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openBookActivity(textview.getText().toString(), textview.getText().toString());
-//                openBookActivity("Ion", "Rebreanu");
+                openBookActivity(textview.getText().toString().split(" - ")[0], textview.getText().toString().split(" - ")[1]);
             }
         });
 

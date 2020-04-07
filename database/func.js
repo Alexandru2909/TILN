@@ -13,11 +13,9 @@ module.exports = {
   },
 
   search_book:function(title,author){
-    var data =[];
     for (let i of bookDB){
       if ( i.titlu.toLowerCase() == title.toLowerCase() && i.autor.toLowerCase() == author.toLowerCase())
-        data.push(i);
-        return data;
+        return i;
     }
   },
   check_user:function(user,pass){
@@ -58,27 +56,28 @@ module.exports = {
     }
   },
   add_book:function(title,author,username,flag){
-    console.log("im here");
-    for (let i of bookDB){
-      if ( i.titlu.toLowerCase() == title.toLowerCase() && i.autor.toLowerCase() == author.toLowerCase())
-        for ( var j=0;j<userDB.length;j++){
-          if(userDB[j].name == username){
-            switch(flag){
-              case 1:
-                userDB[j].read.push(i.id);
-                break;
-              case 2:
-                userDB[j].currently.push(i.id);
-                break;
-              case 3:
-                userDB[j].wishlist.push(i.id);
-                break;
-            }
-            fs.writeFile('dummyusersdb.json', JSON.stringify(userDB), (err) => {
-              if (err) throw err;
-              console.log('Data written to file');
-          });
-          }
+    var book = this.search_book(title,author);
+    for ( var j=0;j<userDB.length;j++){
+      if(userDB[j].name == username){
+        console.log(userDB[j].name,book.id,flag);
+        switch(Number(flag)){
+          case 1:
+            console.log(j + ' read ' + book.id + userDB[j].read);
+            userDB[j].read.push(book.id);
+            break;
+          case 2:
+            console.log(j + ' reads ' + book.id + userDB[j].currently);
+            userDB[j].currently.push(book.id);
+            break;
+          case 3:
+            console.log(j + ' willread ' + book.id +userDB[j].wishlist);
+            userDB[j].wishlist.push(book.id);
+            break;
+        }
+        fs.writeFile('dummyusersdb.json', JSON.stringify(userDB), (err) => {
+          if (err) throw err;
+          console.log('Data written to file');
+      });
       }
     }
   },
@@ -93,9 +92,11 @@ module.exports = {
     for ( var i=0;i<userDB.length;i++){
       if(userDB[i].name == username){
       for (var j =0;j<userDB[i].currently.length;j++){
+        console.log(userDB[i].currently[j]);
         var l = this.get_location(userDB[i].currently[j]);
         for(let k of l.people_near)
-          data.push(this.get_user(k));
+          if (k != userDB[i].id)
+            data.push(this.get_user(k));
 
       }
       }

@@ -3,6 +3,7 @@ package com.example.bookinside;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +34,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -52,7 +54,7 @@ import okhttp3.internal.connection.Exchange;
 public class BookActivity extends AppCompatActivity {
 
 
-    private static String SERVER = "http://192.168.8.105:3000";
+    private String SERVER = global.getInstance().getIp() + "/get_book";
     JSONArray req;
     JSONArray sec_req;
     RequestQueue queue;
@@ -63,7 +65,7 @@ public class BookActivity extends AppCompatActivity {
     ArrayList<String> locations = new ArrayList<>();
 
     public void getBookInfo(){
-        SERVER += "/get_book";
+
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
@@ -94,24 +96,26 @@ public class BookActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsonArrayRequest);
 
-        SERVER = "http://192.168.8.105:3000";
+        //SERVER = "http://192.168.8.105:3000";
 
     }
 
 //    ArrayList<String> pers;
 
     public void getPeople(final View v){
-        SERVER += "/get_people";
+        SERVER = global.getInstance().getIp() +"/get_people";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, SERVER, sec_req, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                System.out.println(response);
+        SharedPreferences sharedPref = getSharedPreferences("User_settings",0);
+
                 try {
                     ArrayList<String> pers = new ArrayList<>();
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonObject = response.getJSONObject(i);
-                        pers.add(jsonObject.getString("name"));
+                        if(!jsonObject.getString("name").equals(sharedPref.getString("User","user")));
+                            pers.add(jsonObject.getString("name"));
                     }
 
 //                    for (int i = 0; i < jsonObject.getJSONArray("people").length(); i++) {
@@ -134,7 +138,6 @@ public class BookActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(request);
 
-        SERVER = "http://192.168.8.105:3000";
     }
 
 
@@ -159,6 +162,7 @@ public class BookActivity extends AppCompatActivity {
 
 
 
+
         bookTitle = (TextView) findViewById(R.id.book_title);
         bookAuthor = (TextView) findViewById(R.id.book_author);
         bookCover = (ImageView) findViewById(R.id.book_cover_image);
@@ -175,8 +179,8 @@ public class BookActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         JSONObject obj = new JSONObject();
         try{
-            obj.put("title", "Ion");
-            obj.put("author", "Liviu Rebreanu");
+            obj.put("title", title);
+            obj.put("author", author);
         }
         catch (Exception e){
             e.printStackTrace();

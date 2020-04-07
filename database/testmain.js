@@ -31,23 +31,30 @@ app.post('/login',function(req,res){
     res.send("False");
 });
 app.post("/get_book",function(req,res){
+  var response = [];
   var title = req.body[0].title;
   var author = req.body[0].author;
-  var x = tools.search_books(title,author,myDB);
-    data = [];
-    for (var k = 0; k < x[0].locatii.length; k++){
-      data.push(tools.get_location(Number(x[0].locatii[k])).name);
-      // console.log(x[0].locatii[k]);
-    }
-    x[0].locatii = data;
-  console.log(x);
-  res.send(x);
+  let x = tools.search_book(title,author); 
+  console.log('/GETBOOK');
+  console.log(x==undefined );
+  console.log(title+' '+author);
+  console.log(x.id,x.titlu);
+  console.log(x.locatii);
+  data = [];
+  for (var k = 0; k < x.locatii.length; k++){
+    data.push(tools.get_location(x.locatii[k]).name);
+    // console.log(x[0].locatii[k]);
+  }
+  var y = JSON.parse(JSON.stringify(x));
+  y.locatii = data;
+  response.push(y);
+  res.send(response);
 });
 app.post("/get_books",function(req,res){
   // Dat fiind ca rezultatul e trimis ca obiect arrayJSON,trebuie sa apelam req.body[0].ceva;
   // console.log(req,req.body[0],req.body.title,req.body[0].title);
   var title = req.body[0].title;
-  var x = tools.search_books(title,myDB);
+  var x = tools.search_books(title);
   for (var j = 0; j < x.length; j++){
   data = [];
     for (var k = 0; k < x[j].locatii.length; k++){
@@ -65,9 +72,6 @@ app.post("/get_notifs",function(req,res){
   var x = tools.get_recomm(user);
   console.log(x);
   res.send(x);
-});
-app.listen(3000,function(){
-  console.log("Started on PORT 3000");
 });
 app.post("/add_on", function(req,res){
   var title_author = req.body.title.split(" - ");
@@ -94,3 +98,7 @@ app.post("/get_user_books", function(req, res){
   res.send(x)
   console.log(x);
 })
+app.listen(3000,function(){
+  console.log("Started on PORT 3000");
+});
+// console.log(tools.get_recomm("Drago"));

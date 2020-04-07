@@ -39,7 +39,7 @@ public class FindBooksActivity extends AppCompatActivity {
     ListView myList;
 
     //    ////////////////////////
-    private static String SERVER = "http://192.168.8.105:3000/get_books";
+    private  String SERVER = global.getInstance().getIp() + "/get_books";
     RequestQueue queue;
     JSONArray req;
 

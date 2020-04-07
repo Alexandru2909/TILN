@@ -36,10 +36,10 @@ public class DashboardActivity extends AppCompatActivity {
     Intent emailIntent;
     NotificationManager notificationManager;
     NotificationCompat.Builder builder;
-
+    private String SERVER = global.getInstance().getIp() + "/get_notifs";
     public  void  GetNotifs() {
         //Define the endpoint called by funct
-        String SERVER = "http://192.168.1.3:3000/get_notifs";
+
 //        START LOADING
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
                         System.out.println("hello"+jsonObject.getString("email") + jsonObject.getString("name"));
                         emailIntent.setData(Uri.parse("mailto:"+jsonObject.getString("email")));
                         emailIntent.setType("text/plain");
-                        showNotification("MappingBooks","Hey,you might now "+ jsonObject.getString("name")+ " from one of your books.\nTap here to email him!");
+                        showNotification("MappingBooks","Hey,you might know "+ jsonObject.getString("name")+ " from one of your books.\nTap here to email him!");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

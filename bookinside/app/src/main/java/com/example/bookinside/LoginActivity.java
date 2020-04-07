@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String SERVER = "http://192.168.8.105:3000/login";
+    private String SERVER = global.getInstance().getIp() + "/login";
     HashMap<String, String> req = new HashMap<>();
     RequestQueue queue;
     String res;
@@ -99,8 +99,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
 
         etUsername = (EditText)findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
