@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="project, info, Android" />
+    <title>BookInside</title>
+    <link rel="stylesheet" href="scholarly.css">
+</head>
+<body>
+    <header>
+        <p class="title">Documentatia proiectului BookInside - sapt 8</p>
+    </header>
+    <article>
+        <h1>Echipa</h1>
+        <ol>
+            <li>
+                Irimia Andreea Gabriela 
+            </li>
+            <li>
+                Caloian Andrei George
+            </li>
+            <li>
+                Ciocirtau Dragos
+            </li>
+            <li>
+                Putanu Alexandru
+            </li>
+            <li>
+                Georgescu Florin
+            </li>
+        </ol>
+        <section>
+            <h2>Abstract</h2>
+            <p>
+                Aceasta pagina contine informatii despre Proiectul BookInside, proiectul cu numarul 8.
+            </p>
+        </section>
+        <section>
+            <h2>Descrierea proiectului</h2>
+            <p>
+                Cerinta proiectului este:O aplicație vă preia informații despre lecturile pe care le aveți, momentul lecturii, precum și minimale aprecieri asupra cărților citite. Prelungiți aplicația pentru a vă semnala când vă aflați în proximitatea unei persoane care a citit aceeași carte, recent ori mai de mult. Aplicația vă poate facilita o întâlnire cu acea persoană. 
+            </p>
+        </section>
+        <section>
+        <h2>
+            Progres
+        </h2>
+        <p>
+            Pana în momentul redactarii acestui document, aplicația noastră are urmatoarele caracteristici: 
+        </p>
+        <p>
+            Aplicația BookInside poate fi instalata pe un dispozitiv Android și permite autentificarea utilizatorilor prin username și parola. Aceasta va cere, după instalare, acces la locatie, pentru a putea folosi poziția utilizatorului în calculul proximitatii geografice de punctele din baza noastră de date. 
+        </p>
+        <p>
+            Baza de date consta deocamdata intr-o serie de fisiere de tip json, deoarece accesul este foarte usor din serverul node.js, dar in curand vom transfera toate aceste date si metode de acces pe un server MongoDB. 
+            Intrarile sunt organizate in 3 categorii:
+            <ol>
+                <li>
+                    Utilizatori, despre care cunoastem locatia (latitudine si logitudine), date de autentificare
+                    (nume de utilizator, parola, email), date de contact (linkuri catre alte retele sociale adaugate de utilizator)
+                    si listele cu carti ( cartile citite in trecut, cartile in curs de citire si cartile ce urmeaza a fi citite de utilizator).
+                </li>
+                <li>
+                    Locatii, despre care cunoastem numele locatiei si coordonatele, impreuna cu o lista de utilizatori ce se afla in aproprierea acest locatii.
+                    Actualizarea listelor cu utilizatori apropiati de locatii se face automat, pentru fiecare logare a unui utilizator, prin preluarea locatiei acestuia din dispozitiv.
+                    De asemenea, adaugarea unei noi locatii se face pentru fiecare noua carte adaugata.
+                </li>
+                <li>
+                    Carti, despre care cunoastem titlul,autorul, descrierea, locatiile din carte dar si un link catre o poza cu coperta, pentru a fi afisata in aplicatie mai atractiv.
+                </li>
+            </ol>
+        </p>
+        <img src="login.png" alt="pagina de log in">
+        <figcaption> Pagina de logare</figcaption>
+        <p>
+            Dupa logare, utilizatorului ii este prezentat dashboard-ul, meniul aplicatiei, din care poate verifica listele de carti sau poate sa caute alte carti.
+            In fundal, aplicatia sincronizeaza locatia curenta a utilizatorului si o trimite la server, apoi descarca o lista de posibile contacte, pentru a le afisa sub forma unor notificari.
+            Un alt utilizator este considera posibil contact, daca pozitia lui este in apropierea unei locatii din cartea pe care primul utilizator o citeste acum. Odata apasata o notificare, in aplicatia de e-mail a telefonului este deschis un nou mesaj catre persoana care a produs notificarea. 
+        </p>
+        <img src="notification.png" alt="poza cu notificarea">
+        <figcaption> Exemplu de notificare</figcaption>
+        <p>
+            In pagina de carti citite, va fi afisat raspunsul de la server, anume o lista de carti sub forma titlu - autor astfel:
+        </p>
+        <img src="before_list.png.png" alt="pagina cu lista carti">
+        <figcaption> Lista de carti in curs de citire</figcaption>
+        <p>
+            Pentru a adauga o carte la aceasta lista, ea trebuie mai intai cautata. Cu unul din butoanele din card-ul cartii, putem adauga cartea gasita la lista de carti citite,in curs de citire sau care urmeaza a fi citite.
+        </p>
+        <img src="search.png" alt="pagina de cautare">
+        <figcaption> Pagina de cautare</figcaption>
+        <p>
+            Dupa ce am apasat pe al 2-lea buton, asa arata lista noastra cu carti in curs de citire. 
+            In fundal, serverul a actualizat lista cu carti a utilizatorului curent.
+        </p>
+        <img src="./updated_list.png" alt="pagina cu lista carti">
+        <figcaption> Lista de carti in curs de citire</figcaption>
+        <p>
+            Detaliile despre o carte sunt afisate in aceasta ordine: Titlu, autor, descriere, locatii.
+        </p>
+        <img src="./book1.png" alt="pagina unei carti">
+        <img src="./book2.png" alt="pagina unei carti">
+        <figcaption> Pagina unei carti</figcaption>
+        <p> Pentru fiecare locatie, aplicatia poate afisa o lista de utilizatori din apropierea locatiei astfel:</p>
+        <img src="./peoplenear.png" alt="pagina unei carti">
+        <figcaption>Oameni aproape de "satul Parva", din Ion</figcaption>
+        </section>
+        <section>
+            <h2>
+                Lucrul cu api-uri externe aplicatiei noastre
+            </h2>
+            <p>
+                Am folosit geopy din python pentru determinarea unor locatii si obnerea coordonatelor si adresei complete ,tot cu ajutorul geopy si folium implementarea unei harti si posibilitatea de a vedea locatiile introduse.
+            </p>
+        </section>
+        <section>
+            <h2>Ghid de utilizare</h2>
+            <p> Versiunea curenta a aplicatiei,ce descrisa in acest document poate fi descarcata de pe branch-ul numit "test". Pentru a rula aplicatia, e nevoie de Android Studio impreuna cu emulatorul din program. Proiectul pentru Android Studio este folderul "bookinside". Pentru a porni serverul la care se conecteaza aplicatia va fi nevoie de NodeJS. In folderul "database", se va rula din command prompt sau terminal "npm install", apoi pentru a porni serverul "node testmain.js". Inainte de a porni aplicatia din emulatorul Android, in clasa publica "global", trebuie modificat atributul "ip" cu ip-ul localhost. </p>
+        </section>
+        <section>
+            <h2>
+                Impartirea sarcinilor
+            </h2>
+            <p>
+                Pana acum s-a respectat impartirea sarcinilor de la inceput, in sensul ca:
+                <ol>
+                <li>Irimia Andreea Gabriela s-a ocupat de front-end.</li>
+                <li>Caloian Andrei George s-a ocupat de documentare si implementare pentru api-uri externe.</li>
+                <li>Ciocirtau Dragos, impreuna cu Putanu Alexandru s-au ocupat de implementarea back-end pentru aplicatie si de serverul Node, impreuna cu baza de date curenta ( cea fara MongoDB ).</li>
+                <li>Georgescu Florin a lucrat la implementarea MongoDB pentru server.</li>
+            </ol>
+            </p>
+        </section>
+    </article>
+</body>
+
+</html>
