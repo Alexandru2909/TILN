@@ -139,11 +139,18 @@ module.exports = {
     }
     return users;
   },
-  get_user_locations:function(user){
-    data = [];
+  get_user_data:function(user){
+    data = {};
     for (let usr of userDB){
       if (usr.name == user){
-          data = usr.locations;
+          data.mail = usr.email;
+          data.contact = usr.reachable;
+          data.books = [];
+          for ( let l of usr.currently){
+            data.books.push(this.get_book(l).titlu);
+          }
+          data.locations = usr.locations;
+
       }
     }
     return data;

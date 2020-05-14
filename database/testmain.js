@@ -98,14 +98,14 @@ app.post("/get_user_books", function(req, res){
   res.send(x)
   console.log(x);
 });
-app.post("/get_locations",function(req, res){
+app.post("/fetch_user",function(req, res){
   var user = req.body[0].user;
   console.log(user);
-  var x = tools.get_user_books(user, flag);
+  var x = tools.get_user_data(user, flag);
   res.send(x)
   console.log(x);
 });
-app.listen(3000,function(){
-  console.log("Started on PORT 3000");
-});
-// console.log(tools.get_recomm("Drago"));
+// app.listen(3000,function(){
+//   console.log("Started on PORT 3000");
+// });
+console.log(tools.get_user_data("Drago"));
