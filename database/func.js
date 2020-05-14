@@ -41,8 +41,10 @@ module.exports = {
   set_location:function(id,lat,lon){
     for ( var i=0;i<userDB.length;i++){
       if(userDB[i].id == id){
-        userDB[i].latitude = Number(lat);
-        userDB[i].longitude = Number(lon);
+        loc = {};
+        loc.lat = Number(lat);
+        loc.long = Number(lon);
+        userDB[i].locations.push(loc);
         fs.writeFile('dummyusersdb.json', JSON.stringify(userDB), (err) => {
           if (err) throw err;
           console.log('Data written to file');
@@ -136,5 +138,14 @@ module.exports = {
       users.push(this.get_book(x))
     }
     return users;
+  },
+  get_user_locations:function(user){
+    data = [];
+    for (let usr of userDB){
+      if (usr.name == user){
+          data = usr.locations;
+      }
+    }
+    return data;
   }
 }

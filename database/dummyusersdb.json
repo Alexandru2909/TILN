@@ -4,6 +4,7 @@
         "name": "Bob",
         "password": "B0Brulzzz",
         "email": "bobtheBo$$@smechermail.org",
+        "reachable" : "Instagram : www.insta.com/profile1",
         "wishlist": [
             2,
             3
@@ -14,14 +15,14 @@
         "read": [
             1
         ],
-        "latitude": 45.23,
-        "longitude": 23.14
+        "locations":[]
     },
     {
         "id": 1,
         "name": "Drago",
         "password": "parola",
         "email": "smecherdeSmecher@dragosmail.com",
+        "reachable" : "Instagram : www.insta.com/profile1",
         "wishlist": [
             2,
             3,
@@ -34,14 +35,14 @@
             1,
             0
         ],
-        "latitude": 45.8478146,
-        "longitude": 27.4210436
+        "locations":[]
     },
     {
         "id": 2,
         "name": "Putzel",
         "password": "parola",
         "email": "aproapeSmecher@dragosmail.com",
+        "reachable" : "Instagram : www.insta.com/profile1",
         "wishlist": [
             1
         ],
@@ -52,14 +53,14 @@
             2,
             3
         ],
-        "latitude": 45.8478146,
-        "longitude": 27.4210436
+        "locations":[{"lat":45.8478146,"long":27.4210436}]
     },
     {
         "id": 3,
         "name": "Andrei",
         "password": "parola",
         "email": "aproapeSmecher@bmwmail.com",
+        "reachable" : "Instagram : www.insta.com/profile1",
         "wishlist": [
             0
         ],
@@ -70,14 +71,14 @@
         "read": [
             3
         ],
-        "latitude": 45.8478146,
-        "longitude": 27.4210436
+        "locations":[]
     },
     {
         "id": 4,
         "name": "Andreeea",
         "password": "parola444",
         "email": "adresa5@gmail.com",
+        "reachable" : "Instagram : www.insta.com/profile1",
         "wishlist": [
             1
         ],
@@ -88,14 +89,14 @@
             2,
             3
         ],
-        "latitude": 45.1238146,
-        "longitude": 27.7540436
+        "locations":[]
     },
     {
         "id": 5,
         "name": "Florin",
         "password": "parola222",
         "email": "adresa6@gmail.com",
+        "reach":"Facebook:www.facebook.com/profile/0000",
         "wishlist": [
             2
         ],
@@ -106,7 +107,6 @@
             1,
             3
         ],
-        "latitude": 45.8478146,
-        "longitude": 27.4210436
+        "locations":[]
     }
 ]

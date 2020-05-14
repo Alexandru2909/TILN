@@ -97,7 +97,14 @@ app.post("/get_user_books", function(req, res){
   var x = tools.get_user_books(user, flag);
   res.send(x)
   console.log(x);
-})
+});
+app.post("/get_locations",function(req, res){
+  var user = req.body[0].user;
+  console.log(user);
+  var x = tools.get_user_books(user, flag);
+  res.send(x)
+  console.log(x);
+});
 app.listen(3000,function(){
   console.log("Started on PORT 3000");
 });
