@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#2f1847"
+    android:textAlignment="center"
+    tools:context=".UserActivity">
+
+
+    <ImageView
+        android:id="@+id/back_from_user_page"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="30dp"
+        android:clickable="true"
+        android:contentDescription="@string/back_from_user_page"
+        android:focusable="true"
+        android:src="@drawable/arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginRight="60dp"
+        android:text="@string/user_username"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="60dp"
+        android:text="@string/user_email"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_username" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_mail">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="500dp">
+
+            <EditText
+                android:id="@+id/user_contacts_label"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Contact"
+                android:textColor="@color/white">
+
+
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/user_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/user_contacts_label"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/user_books_label"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_contacts"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="60dp"
+                android:text="Books list"
+                android:textColor="@color/white">
+
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/user_books"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/user_books_label"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="82dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/user_books_label">
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/user_locations_label"
+                android:layout_width="176dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_books_label"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginRight="60dp"
+                android:text="Locations list"
+                android:textColor="@color/white">
+
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/user_locations"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/user_locations_label"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

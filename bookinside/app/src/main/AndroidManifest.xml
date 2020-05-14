@@ -45,6 +45,9 @@
         <activity
             android:name=".BookActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
