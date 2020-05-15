@@ -201,6 +201,33 @@ public class BookActivity extends AppCompatActivity {
 
     }
 
+    public CardView CreateBlankCardView(CardView bookView) {
+        Context context;
+        CardView cardview;
+        context = getApplicationContext();
+
+        cardview = new CardView(context);
+
+        layoutparams1 = new RelativeLayout.LayoutParams(
+                Resources.getSystem().getDisplayMetrics().widthPixels,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        cardview.setLayoutParams(layoutparams1);
+
+        cardview.setContentPadding(5, 10,5,10);
+
+        cardview.setCardBackgroundColor(Color.TRANSPARENT);
+
+        cardview.setBackgroundColor(Color.TRANSPARENT);
+
+        cardview.setMaxCardElevation(0);
+
+        cardview.addView(bookView);
+
+        return cardview;
+    }
+
     public CardView CreateCardView(final String text){
         Context context;
         final CardView cardview;
@@ -265,33 +292,6 @@ public class BookActivity extends AppCompatActivity {
         return cardview;
     }
 
-    public CardView CreateBlankCardView(CardView bookView) {
-        Context context;
-        CardView cardview;
-        context = getApplicationContext();
-
-        cardview = new CardView(context);
-
-        layoutparams1 = new RelativeLayout.LayoutParams(
-                Resources.getSystem().getDisplayMetrics().widthPixels,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        cardview.setLayoutParams(layoutparams1);
-
-        cardview.setContentPadding(5, 10,5,10);
-
-        cardview.setCardBackgroundColor(Color.TRANSPARENT);
-
-        cardview.setBackgroundColor(Color.TRANSPARENT);
-
-        cardview.setMaxCardElevation(0);
-
-        cardview.addView(bookView);
-
-        return cardview;
-    }
-
     public void ShowPopUp(View v, ArrayList<String> persons) {
         myDialog.setContentView(R.layout.custompopup);
 
@@ -325,14 +325,15 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openUserActivity((String) adapterView.getItemAtPosition(i));
-            }
+                myDialog.dismiss();
+                }
         });
     }
 
     public void openUserActivity(String name) {
         Intent intent = new Intent(this, UserActivity.class);
         intent.putExtra("username", name);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

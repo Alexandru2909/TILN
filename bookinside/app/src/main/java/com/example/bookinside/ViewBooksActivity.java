@@ -1,28 +1,25 @@
 package com.example.bookinside;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -30,24 +27,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class ViewBooksActivity extends AppCompatActivity {
 
@@ -91,6 +75,39 @@ public class ViewBooksActivity extends AppCompatActivity {
 
 //        SERVER = "http://192.168.8.105:3000";
 
+    }
+
+    public Boolean removedBook = false;
+
+    public void removeBook(){
+        SERVER = global.getInstance().getIp() + "/remove_book_from_list";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                       if(response.getJSONObject(0).get("response") == "true"){
+                           removedBook = true;
+                       }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                System.out.println("Volley"+ error.toString());
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
+////////////////////
+        jsonArrayRequest.setShouldCache(false);
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonArrayRequest);
     }
 
     RelativeLayout.LayoutParams layoutparams;
@@ -228,7 +245,7 @@ public class ViewBooksActivity extends AppCompatActivity {
     }
 
     public CardView CreateCardView(String bookDetails) {
-        Context context;
+        final Context context;
         CardView cardview;
         final TextView textview;
         context = getApplicationContext();
@@ -272,6 +289,75 @@ public class ViewBooksActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openBookActivity(textview.getText().toString().split(" - ")[0], textview.getText().toString().split(" - ")[1]);
+            }
+        });
+
+        cardview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                PopupMenu bookmenu = new PopupMenu(getBaseContext(), view);
+                bookmenu.getMenu().add("Remove from list");
+                switch (getIntent().getStringExtra("title")){
+                    case "Wishlist":
+                        bookmenu.getMenu().add("Move to Your books");
+                        bookmenu.getMenu().add("Move to Reading now");
+                        break;
+                    case "Reading now":
+                        bookmenu.getMenu().add("Move to Wishlist");
+                        bookmenu.getMenu().add("Move to Your books");
+                        break;
+                    case "Your books":
+                        bookmenu.getMenu().add("Move to Wishlist");
+                        bookmenu.getMenu().add("Move to Reading now");
+                        break;
+                    default:
+                        break;
+                }
+                bookmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if(menuItem.getTitle() == "Remove from list") {
+                            Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was removed from " + getIntent().getStringExtra("title"), Toast.LENGTH_SHORT).show();
+                            req = new JSONArray();
+                            JSONObject obj = new JSONObject();
+                            try {
+                                int flag = -1;
+                                obj.put("user", getIntent().getStringExtra("username"));
+                                switch (getIntent().getStringExtra("title")){
+                                    case "Wishlist":
+                                        flag = 2;
+                                        break;
+                                    case "Reading now":
+                                        flag = 1;
+                                        break;
+                                    case "Your books":
+                                        flag = 0;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                obj.put("flag", flag);
+                                obj.put("book", textview.getText());
+                            }
+                            catch(JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            req.put(obj);
+                            removeBook();
+                            if(removedBook){
+                                linearLayout.removeView(textview);
+                            }
+                            removedBook = false;
+                        }
+                        else{
+                            Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was moved to " + menuItem.getTitle().toString().split(" to ")[1], Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+                bookmenu.show();
+                return true;
             }
         });
 

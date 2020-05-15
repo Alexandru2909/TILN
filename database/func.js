@@ -147,12 +147,13 @@ module.exports = {
           data.contact = usr.reachable;
           data.books = [];
           for ( let l of usr.currently){
-            data.books.push(this.get_book(l).titlu);
+            data.books.push(this.get_book(l).titlu.concat("-", this.get_book(l).autor));
           }
           data.locations = usr.locations;
 
       }
     }
-    return data;
+    ret = [data]
+    return ret;
   }
 }

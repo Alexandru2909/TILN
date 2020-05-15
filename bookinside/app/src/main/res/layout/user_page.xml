@@ -47,7 +47,7 @@
         android:layout_marginRight="60dp"
         android:text="@string/user_email"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
             <LinearLayout
                 android:id="@+id/user_contacts"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/user_contacts_label"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
@@ -105,7 +105,7 @@
             <LinearLayout
                 android:id="@+id/user_books"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/user_books_label"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="82dp"
@@ -118,9 +118,9 @@
                 android:id="@+id/user_locations_label"
                 android:layout_width="176dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_books_label"
+                android:layout_below="@+id/user_books"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="-64dp"
                 android:layout_marginRight="60dp"
                 android:text="Locations list"
                 android:textColor="@color/white">
@@ -130,7 +130,7 @@
             <LinearLayout
                 android:id="@+id/user_locations"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/user_locations_label"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
