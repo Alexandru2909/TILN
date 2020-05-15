@@ -2,6 +2,7 @@ package com.example.bookinside;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -107,6 +108,9 @@ public class UserActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         JSONObject obj = new JSONObject();
         try{
+            SharedPreferences sharedPref = getSharedPreferences("User_settings",0);
+            obj.put("asking",sharedPref.getString("User","user"));
+
             obj.put("user", name);
         }
         catch (Exception e){

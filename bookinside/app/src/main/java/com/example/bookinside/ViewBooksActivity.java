@@ -33,12 +33,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static java.lang.System.*;
+
 public class ViewBooksActivity extends AppCompatActivity {
 
 //    ////////////////////////
     private String SERVER = global.getInstance().getIp() + "/get_user_books";
     JSONArray req;
     RequestQueue queue;
+    String title;
 
 
     public void getUserBooks(){
@@ -62,7 +65,7 @@ public class ViewBooksActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                System.out.println("Volley"+ error.toString());
+                out.println("Volley"+ error.toString());
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
@@ -98,7 +101,7 @@ public class ViewBooksActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                System.out.println("Volley"+ error.toString());
+                out.println("Volley"+ error.toString());
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
@@ -164,7 +167,7 @@ public class ViewBooksActivity extends AppCompatActivity {
         sectionBook = (TextView) findViewById(R.id.book_section_title);
 
         final String name = getIntent().getStringExtra("username");
-        final String title = getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("title");
         sectionBook.setText(title);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -297,62 +300,72 @@ public class ViewBooksActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 PopupMenu bookmenu = new PopupMenu(getBaseContext(), view);
                 bookmenu.getMenu().add("Remove from list");
-                switch (getIntent().getStringExtra("title")){
-                    case "Wishlist":
-                        bookmenu.getMenu().add("Move to Your books");
-                        bookmenu.getMenu().add("Move to Reading now");
-                        break;
-                    case "Reading now":
-                        bookmenu.getMenu().add("Move to Wishlist");
-                        bookmenu.getMenu().add("Move to Your books");
-                        break;
-                    case "Your books":
-                        bookmenu.getMenu().add("Move to Wishlist");
-                        bookmenu.getMenu().add("Move to Reading now");
-                        break;
-                    default:
-                        break;
-                }
+//                switch (getIntent().getStringExtra("title")){
+//                    case "Wishlist":
+//                        bookmenu.getMenu().add("Move to Your books");
+//                        bookmenu.getMenu().add("Move to Reading now");
+//                        break;
+//                    case "Reading now":
+//                        bookmenu.getMenu().add("Move to Wishlist");
+//                        bookmenu.getMenu().add("Move to Your books");
+//                        break;
+//                    case "Your books":
+//                        bookmenu.getMenu().add("Move to Wishlist");
+//                        bookmenu.getMenu().add("Move to Reading now");
+//                        break;
+//                    default:
+//                        break;
+//                }
                 bookmenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        if(menuItem.getTitle() == "Remove from list") {
-                            Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was removed from " + getIntent().getStringExtra("title"), Toast.LENGTH_SHORT).show();
-                            req = new JSONArray();
-                            JSONObject obj = new JSONObject();
-                            try {
-                                int flag = -1;
-                                obj.put("user", getIntent().getStringExtra("username"));
-                                switch (getIntent().getStringExtra("title")){
-                                    case "Wishlist":
-                                        flag = 2;
-                                        break;
-                                    case "Reading now":
-                                        flag = 1;
-                                        break;
-                                    case "Your books":
-                                        flag = 0;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                obj.put("flag", flag);
-                                obj.put("book", textview.getText());
+//                        int flag;
+//                        Toast.makeText(getBaseContext(),(menuItem.getTitle()),Toast.LENGTH_SHORT);
+//                        switch((String)(menuItem.getTitle())){
+//
+//                            case "Move to Reading now":
+//                                Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was moved to " + menuItem.getTitle().toString().split(" to ")[1], Toast.LENGTH_SHORT).show();
+//                                flag = 1;
+//                                break;
+//                            case "Move to Wishlist":
+//                                Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was moved to " + menuItem.getTitle().toString().split(" to ")[1], Toast.LENGTH_SHORT).show();
+//                                flag = 2;
+//                            case "Move to Your books":
+//                                Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was moved to " + menuItem.getTitle().toString().split(" to ")[1], Toast.LENGTH_SHORT).show();
+//                                flag = 0;
+//                            default:
+//                                flag = -1;
+//                                Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was removed from " + getIntent().getStringExtra("title"), Toast.LENGTH_SHORT).show();
+//                        }
+                        Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was removed from " + getIntent().getStringExtra("title"), Toast.LENGTH_SHORT).show();
+                        req = new JSONArray();
+                        JSONObject obj = new JSONObject();
+                        try{
+                            obj.put("user", getIntent().getStringExtra("username"));
+                            obj.put("book", textview.getText());
+                            switch(title) {
+                                case "Wishlist":
+                                    obj.put("list", 0);
+                                    break;
+                                case "Reading now":
+                                    obj.put("list", 1);
+                                    break;
+                                case "Your books":
+                                    obj.put("list", 2);
+                                    break;
+                                default:
+                                    obj.put("list", 2);
                             }
-                            catch(JSONException e)
-                            {
-                                e.printStackTrace();
-                            }
-                            req.put(obj);
-                            removeBook();
-                            if(removedBook){
-                                linearLayout.removeView(textview);
-                            }
-                            removedBook = false;
+                        }catch(JSONException e)
+                        {
+                            e.printStackTrace();
                         }
-                        else{
-                            Toast.makeText(getBaseContext(), textview.getText().toString().split(" - ")[0] + "was moved to " + menuItem.getTitle().toString().split(" to ")[1], Toast.LENGTH_SHORT).show();
+                        req.put(obj);
+                        removeBook();
+                        if(removedBook){
+                            linearLayout.removeView(textview);
                         }
+                        removedBook = false;
                         return true;
                     }
                 });

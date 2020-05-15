@@ -139,8 +139,13 @@ module.exports = {
     }
     return users;
   },
-  get_user_data:function(user){
+  get_user_data:function(user,asking){
     data = {};
+    for (let usr of userDB){
+      if (usr.name == asking){
+        who = usr.locations[usr.locations.length-1];
+      }}
+
     for (let usr of userDB){
       if (usr.name == user){
           data.mail = usr.email;
@@ -149,11 +154,36 @@ module.exports = {
           for ( let l of usr.currently){
             data.books.push(this.get_book(l).titlu.concat("-", this.get_book(l).autor));
           }
-          data.locations = usr.locations;
-
+          data.locations = [];
+          for( let loc of usr.locations){
+            data.locations.push(Math.sqrt(Math.pow(loc.lat - who.lat,2)- Math.pow(loc.long - who.long,2)).toString() + "km from your last location."); 
+          }
       }
     }
     ret = [data]
     return ret;
+  },
+  remove_book:function(user,book,list){
+
+    for ( var i=0;i<userDB.length;i++){
+      if(userDB[i].name == user){
+
+        switch(Number(list)){
+          case 0:
+            userDB[i].wishlist.splice(userDB[i].wishlist.indexOf(this.search_books(book)[0].id),1);
+            break;
+          case 1:
+            userDB[i].currently.splice(userDB[i].currently.indexOf(this.search_books(book)[0].id),1);
+            break;
+          default:
+            userDB[i].read.splice(userDB[i].read.indexOf(this.search_books(book)[0].id),1);
+            break;
+          }
+        fs.writeFile('dummyusersdb.json', JSON.stringify(userDB), (err) => {
+          if (err) throw err;
+          console.log('Data written to file');
+      });
+    }
+    }
   }
 }

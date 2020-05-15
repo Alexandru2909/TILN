@@ -100,12 +100,21 @@ app.post("/get_user_books", function(req, res){
 });
 app.post("/fetch_user",function(req, res){
   var user = req.body[0].user;
+  var asking = req.body[0].asking;
   console.log(user);
-  var x = tools.get_user_data(user);
+  var x = tools.get_user_data(user,asking);
   res.send(x)
   console.log(x);
+});
+app.post("/remove_book_from_list",function(req, res){
+  var user = req.body[0].user;
+  var book = req.body[0].book;
+  var list = req.body[0].list;
+  console.log(user);
+  tools.remove_book(user,book,list);
 });
 app.listen(3000,function(){
   console.log("Started on PORT 3000");
 });
 // console.log(tools.get_user_data("Drago"));
+// console.log(tools.remove_book("Drago","Ion",2));
