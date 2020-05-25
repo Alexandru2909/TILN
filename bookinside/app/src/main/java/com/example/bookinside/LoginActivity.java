@@ -1,25 +1,74 @@
 package com.example.bookinside;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
 
-import org.w3c.dom.ls.LSOutput;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private String SERVER = global.getInstance().getIp() + "/login";
+    HashMap<String, String> req = new HashMap<>();
+    RequestQueue queue;
+    String res;
+    SharedPreferences.Editor editor ;
+    private FusedLocationProviderClient fusedLocationClient;
+
+    public void LogIn() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, SERVER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                res = response;
+                System.out.println(response);
+                if (response.equals("True")){
+                    editor.putString("User", etUsername.getText().toString());
+                    editor.putString("Password", etPassword.getText().toString());
+                    editor.commit();
+                    openDashActivity();
+                }
+            }
+        },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    res = "False";
+                    error.printStackTrace();
+                }
+            }){
+            @Override
+            protected Map<String, String> getParams() {
+                return req;
+            }
+        };
+        postRequest.setShouldCache(false);
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
+    }
+
 
     final String url_Login = "";
     EditText etUsername, etPassword;
@@ -42,17 +91,35 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = (EditText)findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        SharedPreferences sharedPref = getSharedPreferences("User_settings", 0);
+        editor = sharedPref.edit();
+
 
         btnLogin = (TextView)findViewById(R.id.tv_login_button);
         btnForgetPass = (TextView) findViewById(R.id.tv_forget_pass_button);
         btnRegister = (TextView) findViewById(R.id.tv_register_here_button);
 
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+
+                            req.put("longitude",String.valueOf(location.getLongitude()));
+                            req.put("latitude",String.valueOf(location.getLatitude()));
+                        }
+                        else{
+                            System.out.println("can't get locations..");
+                        }
+                    }
+                });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validateUsername() && validatePassword()) {
-                    String Username = etUsername.getText().toString();
-                    openDashActivity(Username);
+                    checkUser();
                 }
             }
         });
@@ -118,13 +185,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void openDashActivity(String Username) {
+    public void checkUser() {
+        queue = Volley.newRequestQueue(this);
+        req.put("user", etUsername.getText().toString());
+        req.put("password", etPassword.getText().toString());
+        LogIn();
+//        System.out.println(res);
+    }
+    public void openDashActivity(){
         Intent intent1 = new Intent(getBaseContext(), DashboardActivity.class);
-        intent1.putExtra("username", Username);
-
+        SharedPreferences sharedPref = getSharedPreferences("User_settings", 0);
+        intent1.putExtra("username", sharedPref.getString("User","user"));
         intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent1);
-    }
+        }
     public void openForgetPassActivity() {
         Intent intent = new Intent(this, ForgetPasswordActivity.class);
         startActivity(intent);

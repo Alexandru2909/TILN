@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -37,18 +39,20 @@ public class FindBooksActivity extends AppCompatActivity {
     ListView myList;
 
     //    ////////////////////////
-    private static String SERVER = "http://192.168.1.7:3000";
+    private  String SERVER = global.getInstance().getIp() + "/get_books";
     RequestQueue queue;
     JSONArray req;
 
     public  void  GetBooks() {
         //Define the endpoint called by funct
-        SERVER += "/get_books";
+//        SERVER += "/get_books";
 //        START LOADING
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 //            return point of POST
+//        final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -60,7 +64,10 @@ public class FindBooksActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books));
+
+                String username = getIntent().getStringExtra("username");
+                System.out.println(username);
+                myList.setAdapter(new MyAdapter(FindBooksActivity.this, R.layout.my_book_list, books, username));
 //                CLEAR LOADING
 //                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
@@ -86,7 +93,7 @@ public class FindBooksActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("HERE!!!");
+//        System.out.println("HERE!!!");
         setContentView(R.layout.activity_find_books);
 
         queue = Volley.newRequestQueue(this);

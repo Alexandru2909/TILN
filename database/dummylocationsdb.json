@@ -1,0 +1,37 @@
+[
+    {  
+        "id":0,
+        "name": "satul Pripas",
+        "latitude": 47.260000,
+        "longitude": 24.320000,
+        "people_near":[1, 5, 2]
+    },
+    {  
+        "id":1,
+        "name": "satul Parva", 
+        "latitude": 47.392700,
+        "longitude": 24.544100,
+        "people_near":[1, 4, 2]
+    },
+    {  
+        "id":2,
+        "name": "Valea Muresului", 
+        "latitude": 46.392700,
+        "longitude": 24.044100,
+        "people_near":[1,0, 5]
+    },
+    {  
+        "id":3,
+        "name": "La rascrucea dintre doua drumuri", 
+        "latitude": 44.392700,
+        "longitude": 22.544100,
+        "people_near":[3, 4]
+    },
+    {  
+        "id":3,
+        "name": "Romania", 
+        "latitude": 45.052700,
+        "longitude": 24.244100,
+        "people_near":[3]
+    }
+]

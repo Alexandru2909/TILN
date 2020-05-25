@@ -1,0 +1,35 @@
+[
+    {
+        "id":0,   
+        "titlu": "Ion",
+        "autor": "Liviu Rebreanu",
+        "descriere": "Ion este primul roman obiectiv din literatura română, fiind apărut în anul 1920, după o lungă perioadă de elaborare, așa cum însuși autorul menționează în finalul operei, între martie 1913 - iulie 1920. Apariția romanului a stârnit un adevărat entuziasm în epocă, mai ales că nimic din creația nuvelistică de până atunci nu anunța această evoluție spectaculoasă: „Nimic din ce e publicat înainte nu ne putea face să prevedem admirabila dezvoltare a unui scriitor, care a început și a continuat vreo zece ani, nu numai fără strălucire, dar și fără indicații de viitor”, nota Eugen Lovinescu.",
+        "locatii": [0],
+        "cover_photo_url": ""
+    },
+    {  
+        "id":1,
+        "titlu":"Padurea Spanzuratilor",
+        "autor": "Liviu Rebreanu",
+        "descriere":"Pădurea spânzuraților este un roman de război și de analiză psihologică scris de Liviu Rebreanu și publicat în 1922 de către Editura Cartea Românească din București. Romanul reia tema nuvelei anterioare „Catastrofa” (1919), completând-o cu evenimente inspirate din tragedia reală a fratelui scriitorului, sublocotenentul Emil Rebreanu, ce fusese condamnat la moarte și executat în mai 1917 prin spânzurare la Ghimeș pentru încercarea de a traversa frontul în scopul de a se alătura Armatei Române.[2]:p.",
+        "locatii":[1],
+        "cover_photo_url": ""
+    },
+    {  
+        "id":2,
+        "titlu":"Mara",
+        "autor": "Mihail Sadoveanu",
+        "descriere":"Mara este un roman social scris de Ioan Slavici și publicat pentru prima oară sub formă de foileton în perioada ianuarie-decembrie 1894 în revista bucureșteană Vatra și în volum în 1906 de către Editura Institutului de Arte Grafice „Luceafărul” din Budapesta.[1][2] Autorul a devenit cunoscut în literatura română mai ales ca nuvelist, iar Mara este romanul său de debut publicat după aproape 20 de ani de carieră literară. În acest roman autorul adâncește problematica socială pe care o tratase anterior în nuvelele sale.",
+        "locatii":[2],
+        "cover_photo_url": ""
+    },
+    {  
+        "id":3,
+        "titlu":"Moara cu Noroc",
+        "autor": "Ioan Slavici",
+        "descriere":"Moara cu noroc este o nuvelă scrisă de Ioan Slavici, tratând consecințele pe care dorința de îmbogățire le are asupra destinului uman. Majoritatea criticilor o consideră creația cea mai importantă a autorului, alături de Pădureanca și romanul Mara. ",
+        "locatii":[3, 4],
+        "cover_photo_url": ""
+    }
+
+]

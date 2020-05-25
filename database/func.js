@@ -156,7 +156,25 @@ module.exports = {
           }
           data.locations = [];
           for( let loc of usr.locations){
-            data.locations.push(Math.sqrt(Math.pow(loc.lat - who.lat,2)- Math.pow(loc.long - who.long,2)).toString() + "km from your last location."); 
+            minim = 999999;
+            s = "";
+            for ( let bookLoc of locationsDB){
+              if (Math.sqrt(Math.pow(loc.lat - bookLoc.latitude,2)- Math.pow(loc.long - bookLoc.longitude,2))<minim){
+                s = bookLoc.name;
+                minim = Math.sqrt(Math.pow(loc.lat - bookLoc.latitude,2)- Math.pow(loc.long - bookLoc.longitude,2));
+              }
+            }
+            console.log("MIN:" + minim + "S " + s);
+            if ( minim!=NaN && s != undefined){
+              console.log("Minim = " + minim + " And loc = " + s);
+              if ( Math.sqrt(Math.pow(loc.lat - who.lat,2)- Math.pow(loc.long - who.long,2)) <minim )
+                data.locations.push(Math.sqrt(Math.pow(loc.lat - who.lat,2)- Math.pow(loc.long - who.long,2)).toString() + "km from your last location."); 
+              else
+              data.locations.push(minim.toString() + "km from " + s); 
+            }
+            else
+              data.locations.push(Math.sqrt(Math.pow(loc.lat - who.lat,2)- Math.pow(loc.long - who.long,2)).toString() + "km from your last location."); 
+
           }
       }
     }
@@ -164,19 +182,19 @@ module.exports = {
     return ret;
   },
   remove_book:function(user,book,list){
-
+    // console.log("LOOK" + this.search_books(book.split(" -")[0]));
     for ( var i=0;i<userDB.length;i++){
       if(userDB[i].name == user){
 
         switch(Number(list)){
           case 0:
-            userDB[i].wishlist.splice(userDB[i].wishlist.indexOf(this.search_books(book)[0].id),1);
+            userDB[i].wishlist.splice(userDB[i].wishlist.indexOf(this.search_books(book.split(" -")[0])[0].id),1);
             break;
           case 1:
-            userDB[i].currently.splice(userDB[i].currently.indexOf(this.search_books(book)[0].id),1);
+            userDB[i].currently.splice(userDB[i].currently.indexOf(this.search_books(book.split(" -")[0])[0].id),1);
             break;
           default:
-            userDB[i].read.splice(userDB[i].read.indexOf(this.search_books(book)[0].id),1);
+            userDB[i].read.splice(userDB[i].read.indexOf(this.search_books(book.split(" -")[0])[0].id),1);
             break;
           }
         fs.writeFile('dummyusersdb.json', JSON.stringify(userDB), (err) => {

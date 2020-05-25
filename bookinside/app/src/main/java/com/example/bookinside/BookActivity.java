@@ -1,31 +1,27 @@
 package com.example.bookinside;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.ui.NavigationUI;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -33,7 +29,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -43,23 +38,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
 public class BookActivity extends AppCompatActivity {
 
 
-    private static String SERVER = "http://192.168.1.7:3000";
+    private String SERVER = global.getInstance().getIp() + "/get_book";
     JSONArray req;
+    JSONArray sec_req;
     RequestQueue queue;
+    RequestQueue queue2;
     JSONArray res;
     String description;
     String photo_url;
     ArrayList<String> locations = new ArrayList<>();
 
     public void getBookInfo(){
-        SERVER += "/get_book";
+
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
@@ -90,6 +86,48 @@ public class BookActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsonArrayRequest);
 
+        //SERVER = "http://192.168.8.105:3000";
+
+    }
+
+//    ArrayList<String> pers;
+
+    public void getPeople(final View v){
+        SERVER = global.getInstance().getIp() +"/get_people";
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, SERVER, sec_req, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+        SharedPreferences sharedPref = getSharedPreferences("User_settings",0);
+
+                try {
+                    ArrayList<String> pers = new ArrayList<>();
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        if(!jsonObject.getString("name").equals(sharedPref.getString("User","user")));
+                            pers.add(jsonObject.getString("name"));
+                    }
+
+//                    for (int i = 0; i < jsonObject.getJSONArray("people").length(); i++) {
+//                    }
+                    ShowPopUp(v, pers);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Volley"+ error.toString());
+            }
+        });
+
+        request.setShouldCache(false);
+        request.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(request);
+
     }
 
 
@@ -114,6 +152,7 @@ public class BookActivity extends AppCompatActivity {
 
 
 
+
         bookTitle = (TextView) findViewById(R.id.book_title);
         bookAuthor = (TextView) findViewById(R.id.book_author);
         bookCover = (ImageView) findViewById(R.id.book_cover_image);
@@ -130,8 +169,8 @@ public class BookActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         JSONObject obj = new JSONObject();
         try{
-            obj.put("title", "Ion");
-            obj.put("author", "Liviu Rebreanu");
+            obj.put("title", title);
+            obj.put("author", author);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -139,7 +178,7 @@ public class BookActivity extends AppCompatActivity {
         req.put(obj);
         getBookInfo();
 
-        bookDescription.setText(description);
+//        bookDescription.setText(description);
 
         bookAuthor.setText(author);
         bookTitle.setText(title);
@@ -148,8 +187,8 @@ public class BookActivity extends AppCompatActivity {
 //        String[] locations = new String[]{"Strada Jean de la Craiova", "Padurea Hoia Baciu", "Lacul Lebedelor"};
 
 
-        System.out.println(locations);
-        System.out.println(description);
+//        System.out.println(locations);
+//        System.out.println(description);
 
         backBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -158,11 +197,40 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
+//        queue2 = Volley.newRequestQueue(this);
+
     }
 
-    public CardView CreateCardView(String text){
+    public CardView CreateBlankCardView(CardView bookView) {
         Context context;
         CardView cardview;
+        context = getApplicationContext();
+
+        cardview = new CardView(context);
+
+        layoutparams1 = new RelativeLayout.LayoutParams(
+                Resources.getSystem().getDisplayMetrics().widthPixels,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        cardview.setLayoutParams(layoutparams1);
+
+        cardview.setContentPadding(5, 10,5,10);
+
+        cardview.setCardBackgroundColor(Color.TRANSPARENT);
+
+        cardview.setBackgroundColor(Color.TRANSPARENT);
+
+        cardview.setMaxCardElevation(0);
+
+        cardview.addView(bookView);
+
+        return cardview;
+    }
+
+    public CardView CreateCardView(final String text){
+        Context context;
+        final CardView cardview;
         final TextView textview;
         context = getApplicationContext();
 
@@ -200,7 +268,23 @@ public class BookActivity extends AppCompatActivity {
         cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowPopUp(view);
+//                queue2 = Volley.newRequestQueue(getBaseContext());
+
+                sec_req = new JSONArray();
+
+                JSONObject obj = new JSONObject();
+                try{
+                    obj.put("location", textview.getText().toString());
+                    System.out.println(textview.getText().toString());
+                    System.out.println("__________________");
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+                System.out.println(obj);
+                sec_req.put(obj);
+                getPeople(view);
+//                ShowPopUp(view);
 
             }
         });
@@ -208,34 +292,7 @@ public class BookActivity extends AppCompatActivity {
         return cardview;
     }
 
-    public CardView CreateBlankCardView(CardView bookView) {
-        Context context;
-        CardView cardview;
-        context = getApplicationContext();
-
-        cardview = new CardView(context);
-
-        layoutparams1 = new RelativeLayout.LayoutParams(
-                Resources.getSystem().getDisplayMetrics().widthPixels,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        cardview.setLayoutParams(layoutparams1);
-
-        cardview.setContentPadding(5, 10,5,10);
-
-        cardview.setCardBackgroundColor(Color.TRANSPARENT);
-
-        cardview.setBackgroundColor(Color.TRANSPARENT);
-
-        cardview.setMaxCardElevation(0);
-
-        cardview.addView(bookView);
-
-        return cardview;
-    }
-
-    public void ShowPopUp(View v) {
+    public void ShowPopUp(View v, ArrayList<String> persons) {
         myDialog.setContentView(R.layout.custompopup);
 
         ImageView btnAdd, btnClose;
@@ -252,19 +309,32 @@ public class BookActivity extends AppCompatActivity {
         Objects.requireNonNull(myDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         myDialog.show();
 
-        String[] persons = new String[]{"Ion Ion", "Maria Aioanei", "Gheorghe Popa"};
+//        String[] persons = new String[]{"Ion Ion", "Maria Aioanei", "Gheorghe Popa"};
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < persons.length; ++i) {
-            list.add(persons[i]);
-        }
+//        final ArrayList<String> list = new ArrayList<String>();
+//        for (int i = 0; i < persons.size(); ++i) {
+//            list.add(persons.get(i));
+//        }
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
+                android.R.layout.simple_list_item_1, persons);
 
-        System.out.println("_____________________________");
-        System.out.println(personsListView);
+//        System.out.println("_____________________________");
+//        System.out.println(personsListView);
         personsListView.setAdapter(adapter);
+        personsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                openUserActivity((String) adapterView.getItemAtPosition(i));
+                myDialog.dismiss();
+                }
+        });
+    }
 
+    public void openUserActivity(String name) {
+        Intent intent = new Intent(this, UserActivity.class);
+        intent.putExtra("username", name);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 
