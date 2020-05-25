@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
                         System.out.println("hello"+jsonObject.getString("email") + jsonObject.getString("name"));
                         emailIntent.setData(Uri.parse("mailto:"+jsonObject.getString("email")));
                         emailIntent.setType("text/plain");
-                        showNotification("MappingBooks","Hey,you might know "+ jsonObject.getString("name")+ " from one of your books.\nTap here to email him!");
+                        showNotification("BookInside","Hey,you might know "+ jsonObject.getString("name")+ " from one of your books.\nTap here to email him!");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
