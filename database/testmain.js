@@ -55,20 +55,20 @@ app.post("/get_books",function(req,res){
   // console.log(req,req.body[0],req.body.title,req.body[0].title);
   var title = req.body[0].title;
   var x = tools.search_books(title);
-  for (var j = 0; j < x.length; j++){
-  data = [];
-    for (var k = 0; k < x[j].locatii.length; k++){
-      data.push(tools.get_location(Number(x[j].locatii[k])).name);
-      // console.log(x[j].locatii[k]);
-    }
-    x[j].locatii = data;
-  }
+  // for (var j = 0; j < x.length; j++){
+  // data = [];
+  //   for (var k = 0; k < x[j].locatii.length; k++){
+  //     console.log(tools.get_location(Number(x[j].locatii[k])).name);
+  //     data.push(tools.get_location(Number(x[j].locatii[k])).name);
+  //   }
+  //   x[j].locatii = data;
+  // }
   console.log(x);
   res.send(x);
 });
 app.post("/get_notifs",function(req,res){
   var user = req.body[0].user;
-  console.log("HA,"+user);
+  // console.log("HA,"+user);
   var x = tools.get_recomm(user);
   console.log(x);
   res.send(x);

@@ -166,7 +166,6 @@ public class DashboardActivity extends AppCompatActivity {
                 openViewBooksActivity(title,name);
             }
         });
-
         btnFindBooks.setOnClickListener(new View.OnClickListener() {
             String title = "Find a book";
             @Override
@@ -209,6 +208,7 @@ public class DashboardActivity extends AppCompatActivity {
     public void openFindBooksActivity(String title,String name) {
         Intent intent = new Intent(this, FindBooksActivity.class);
         intent.putExtra("title",title);
+        System.out.println("HERE THE NAME IS "+name);
         intent.putExtra("username", name);
         startActivity(intent);
     }

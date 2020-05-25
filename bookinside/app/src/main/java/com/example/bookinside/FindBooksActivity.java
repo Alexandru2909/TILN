@@ -51,7 +51,7 @@ public class FindBooksActivity extends AppCompatActivity {
 //                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 //            return point of POST
-        final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+//        final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, SERVER, req, new Response.Listener<JSONArray>() {
             @Override

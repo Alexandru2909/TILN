@@ -116,7 +116,7 @@ public class MyAdapter extends ArrayAdapter {
         viewHolder.iv_star.setImageResource(books.get(position).starIcon);
         viewHolder.iv_patratel.setImageResource(books.get(position).patratelIcon);
         viewHolder.iv_go.setImageResource(books.get(position).goIcon);
-
+        System.out.println("AAAY" +username+' ' +viewHolder.tv_bookInfo.getText().toString());
 
         row.findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,7 +19,7 @@
         "id":2,
         "titlu":"Mara",
         "autor": "Mihail Sadoveanu",
-        "descriere":"Pădurea spânzuraților este un roman de război și de analiză psihologică scris de Liviu Rebreanu și publicat în 1922 de către Editura Cartea Românească din București. Romanul reia tema nuvelei anterioare „Catastrofa” (1919), completând-o cu evenimente inspirate din tragedia reală a fratelui scriitorului, sublocotenentul Emil Rebreanu, ce fusese condamnat la moarte și executat în mai 1917 prin spânzurare la Ghimeș pentru încercarea de a traversa frontul în scopul de a se alătura Armatei Române.[2]:p.",
+        "descriere":"Mara este un roman social scris de Ioan Slavici și publicat pentru prima oară sub formă de foileton în perioada ianuarie-decembrie 1894 în revista bucureșteană Vatra și în volum în 1906 de către Editura Institutului de Arte Grafice „Luceafărul” din Budapesta.[1][2] Autorul a devenit cunoscut în literatura română mai ales ca nuvelist, iar Mara este romanul său de debut publicat după aproape 20 de ani de carieră literară. În acest roman autorul adâncește problematica socială pe care o tratase anterior în nuvelele sale.",
         "locatii":[2],
         "cover_photo_url": ""
     },
@@ -27,7 +27,7 @@
         "id":3,
         "titlu":"Moara cu Noroc",
         "autor": "Ioan Slavici",
-        "descriere":"Pădurea spânzuraților este un roman de război și de analiză psihologică scris de Liviu Rebreanu și publicat în 1922 de către Editura Cartea Românească din București. Romanul reia tema nuvelei anterioare „Catastrofa” (1919), completând-o cu evenimente inspirate din tragedia reală a fratelui scriitorului, sublocotenentul Emil Rebreanu, ce fusese condamnat la moarte și executat în mai 1917 prin spânzurare la Ghimeș pentru încercarea de a traversa frontul în scopul de a se alătura Armatei Române.[2]:p.",
+        "descriere":"Moara cu noroc este o nuvelă scrisă de Ioan Slavici, tratând consecințele pe care dorința de îmbogățire le are asupra destinului uman. Majoritatea criticilor o consideră creația cea mai importantă a autorului, alături de Pădureanca și romanul Mara. ",
         "locatii":[3, 4],
         "cover_photo_url": ""
     }
